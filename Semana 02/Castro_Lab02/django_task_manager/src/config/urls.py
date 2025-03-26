@@ -19,6 +19,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('tasks.urls')),
+     path('teams/', include('teams.urls')),  # Nueva app de equipos
 ]
 
 

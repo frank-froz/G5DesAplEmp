@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set "VIRTUAL_ENV=C:\Users\Hann\Documents\Proyectos de gitHub\Desarrollo de aplicaciones empresariales\Laboratorio-02\django_task_manager\venv"
+set "VIRTUAL_ENV=C:\Users\Hann\Documents\Proyectos de gitHub\Desarrollo de aplicaciones empresariales\G5DesAplEmp\Semana 02\Castro_Lab02\django_task_manager\venv"
 
 if not defined PROMPT (
     set "PROMPT=$P$G"
