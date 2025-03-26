@@ -27,7 +27,7 @@ function global:deactivate ([switch]$NonDestructive) {
 
 deactivate -nondestructive
 
-$env:VIRTUAL_ENV="C:\Users\Hann\Documents\Proyectos de gitHub\G5DesAplEmp\Semana 02\Castro_Lab02\django_task_manager\venv"
+$env:VIRTUAL_ENV="C:\Users\Hann\Documents\Proyectos de gitHub\Desarrollo de aplicaciones empresariales\G5DesAplEmp\Semana 02\Castro_Lab02\django_task_manager\venv"
 
 if (! $env:VIRTUAL_ENV_DISABLE_PROMPT) {
     # Set the prompt to include the env name
