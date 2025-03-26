@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Mis Equipos</h2>
+    <a href="{% url 'teams:team_create' %}" class="btn btn-primary">Nuevo Equipo</a>
+</div>
+
+<div class="row">
+    {% for team in teams %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ team.name }}</h5>
+                <p class="card-text">{{ team.description|truncatechars:100 }}</p>
+                <p class="text-muted">Miembros: {{ team.members.count }}</p>
+                <a href="{% url 'teams:team_detail' team.pk %}" class="btn btn-sm btn-outline-primary">Ver detalles</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">
+            No perteneces a ningún equipo. <a href="{% url 'teams:team_create' %}">Crea tu primer equipo</a>.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

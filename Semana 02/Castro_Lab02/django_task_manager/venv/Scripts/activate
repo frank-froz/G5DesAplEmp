@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\Hann\Documents\Proyectos de gitHub\Desarrollo de aplicaciones empresariales\Laboratorio-02\django_task_manager\venv"
+VIRTUAL_ENV="C:\Users\Hann\Documents\Proyectos de gitHub\G5DesAplEmp\Semana 02\Castro_Lab02\django_task_manager\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
