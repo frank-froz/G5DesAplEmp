@@ -1,0 +1,35 @@
+.navbar {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand, .navbar-nav .nav-link {
+    color: white;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #3b3004 ;
+}
+
+.table-responsive, .alert.alert-info, .row.mt-3.mb-4 {
+    padding: 20px;
+    margin: 0 auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.card-header {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+}
+
+.text-danger {
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
