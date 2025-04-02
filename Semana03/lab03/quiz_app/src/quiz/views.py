@@ -69,3 +69,92 @@ def question_create(request, exam_id):
         'question_form': question_form,
         'formset': formset,
     })
+
+def exam_delete(request, exam_id):
+    """Vista para eliminar un examen"""
+    exam = get_object_or_404(Exam, id=exam_id)
+    if request.method == 'POST':
+        exam.delete()
+        messages.success(request, 'Examen eliminado correctamente.')
+        return redirect('exam_list')
+    return render(request, 'quiz/exam_confirm_delete.html', {'exam': exam})
+
+
+def question_delete(request, exam_id, question_id):
+    """Vista para eliminar una pregunta de un examen"""
+    exam = get_object_or_404(Exam, id=exam_id)
+    question = get_object_or_404(Question, id=question_id)
+    
+    # Verificar si la pregunta pertenece al examen
+    if question.exam != exam:
+        messages.error(request, "Esta pregunta no pertenece a este examen.")
+        return redirect('exam_detail', exam_id=exam.id)
+    
+    # Eliminar la pregunta
+    question.delete()
+    messages.success(request, 'Pregunta eliminada correctamente.')
+    
+    # Redirigir al detalle del examen
+    return redirect('exam_detail', exam_id=exam.id)
+
+
+def exam_update(request, exam_id):
+    """Vista para actualizar un examen existente"""
+    exam = get_object_or_404(Exam, id=exam_id)
+
+    if request.method == 'POST':
+        form = ExamForm(request.POST, instance=exam)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Examen actualizado correctamente.')
+            return redirect('exam_detail', exam_id=exam.id)
+    else:
+        form = ExamForm(instance=exam)
+
+    return render(request, 'quiz/exam_form.html', {'form': form, 'update': True})
+
+def question_update(request, exam_id, question_id):
+    """Vista para actualizar una pregunta existente"""
+    # Obtener la pregunta o 404 si no existe
+    question = get_object_or_404(Question, id=question_id, exam_id=exam_id)
+
+    if request.method == 'POST':
+        # Crear el formulario con los datos enviados en el POST
+        form = QuestionForm(request.POST, instance=question)
+        if form.is_valid():
+            # Guardar la pregunta actualizada
+            form.save()
+            # Mostrar un mensaje de éxito
+            messages.success(request, 'Pregunta actualizada correctamente.')
+            # Redirigir al detalle del examen
+            return redirect('exam_detail', exam_id=exam_id)
+    else:
+        # Si la solicitud no es POST, crear el formulario vacío con la pregunta existente
+        form = QuestionForm(instance=question)
+
+    # Renderizar la plantilla con el formulario
+    return render(request, 'quiz/question_form.html', {'form': form, 'exam_id': exam_id, 'update': True})
+
+
+def quiz_play(request, exam_id):
+    """Vista para jugar el quiz"""
+    exam = get_object_or_404(Exam, id=exam_id)
+    questions = exam.questions.all()
+    
+    # Revisar si el usuario ha enviado las respuestas
+    if request.method == 'POST':
+        score = 0
+        total_questions = len(questions)
+        
+        for question in questions:
+            user_answer = request.POST.get(f'question_{question.id}')
+            correct_choice = question.choices.filter(is_correct=True).first()
+            if user_answer == str(correct_choice.id):
+                score += 1
+        
+        # Mostrar el puntaje
+        messages.success(request, f'Has obtenido {score} de {total_questions} preguntas correctas.')
+        return redirect('exam_list')  # Redirigir a la lista de exámenes después de jugar
+    
+    return render(request, 'quiz/quiz_play.html', {'exam': exam, 'questions': questions})
+

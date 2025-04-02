@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Eliminar Pregunta{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h2>¿Estás seguro de que quieres eliminar la pregunta "{{ question.text|truncatechars:50 }}"?</h2>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <a href="{% url 'exam_detail' exam_id %}" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

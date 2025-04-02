@@ -36,6 +36,8 @@
                                     <li class="list-group-item">No hay opciones para esta pregunta.</li>
                                 {% endfor %}
                             </ul>
+                            <a href="{% url 'question_delete' exam.id question.id %}" class="btn btn-danger mt-3">Eliminar Pregunta</a>
+                            <a href="{% url 'question_update' exam.id question.id %}" class="btn btn-warning">Editar</a>
                         </div>
                     </div>
                 </div>
@@ -49,7 +51,14 @@
     {% endif %}
 </div>
 
+<br>
 <div>
+    <a href="{% url 'exam_delete' exam.id %}" class="btn btn-danger" data-bs-toggle="tooltip" title="Eliminar examen">Eliminar Examen</a>
+    <a href="{% url 'exam_update' exam.id %}" class="btn btn-warning">Editar Examen</a>
     <a href="{% url 'exam_list' %}" class="btn btn-secondary">Volver a la lista</a>
+    <a href="{% url 'quiz_play' exam.id %}" class="btn btn-success">¡Jugar!</a>
+
 </div>
+
+
 {% endblock %}
