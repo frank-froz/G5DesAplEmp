@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Lista de Categorías</h2>
-    <a href="{% url 'category_create' %}">Crear Categoría</a>
+
+<div class="row">
+    <div class="col-md-8">
+        <h2>Lista de Categorías</h2>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="{% url 'category_create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Add new category
+        </a>
+    </div>
     <ul>
         {% for category in categories %}
             <li>
@@ -11,4 +19,6 @@
             </li>
         {% endfor %}
     </ul>
+</div>
+
 {% endblock %}

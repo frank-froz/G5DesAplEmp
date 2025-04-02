@@ -1,10 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Categoría</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Guardar</button>
-    </form>
-    <a href="{% url 'category_list' %}">Cancelar</a>
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header">
+                <h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Categoría</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Guardar</button>
+                </form>
+                <a href="{% url 'category_list' %}">Cancelar</a>
+            </div>
+        </div>
+    </div>
+
+    
 {% endblock %}
