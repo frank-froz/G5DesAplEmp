@@ -4,13 +4,16 @@ __pycache__/
 *.py[cod]
 *.class
 
+/Semana 01/
+/Semana 02/
+/Semana03/
+
 # Entorno virtual
-venv/
+**/venv/
+**/.venv/
 
-# Archivos de entorno
-.env
 
-# Configuración local
+# ConfiguraciÃ³n local
 local_settings.py
 
 # Base de datos
