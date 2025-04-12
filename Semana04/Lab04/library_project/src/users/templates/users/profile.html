@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Mi perfil{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Perfil de {{ user.username }}</h2>
+    {% if user.profile_image %}
+        <img src="{{ user.profile_image.url }}" alt="Foto de perfil" width="150">
+    {% endif %}
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Biografía:</strong> {{ user.bio }}</p>
+    <a href="{% url 'edit_profile' %}" class="btn btn-primary mt-3">Editar perfil</a>
+</div>
+{% endblock %}

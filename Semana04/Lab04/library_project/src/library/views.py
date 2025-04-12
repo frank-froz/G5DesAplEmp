@@ -38,17 +38,21 @@ def book_list(request):
 def book_detail(request, pk):
     """View for book details"""
     book = get_object_or_404(Book, pk=pk)
-    # Get all categories for this book 🏷️
+    # Obtener todas las categorías para este libro 🏷️
     categories = book.categories.all()
-    # Get all publishers for this book with publication details 🏢
+    # Obtener todas las publicaciones para este libro con detalles de editoriales 🏢
     publications = book.publication_set.select_related('publisher').all()
-    
+    # Obtener todas las reseñas asociadas a este libro 📖
+    reviews = book.reviews.all()  # Accedemos a las reseñas asociadas al libro
+
     context = {
         'book': book, 
         'categories': categories,
-        'publications': publications
+        'publications': publications,
+        'reviews': reviews,  # Añadimos las reseñas al contexto
     }
     return render(request, 'library/book_detail.html', context)
+
 
 def category_list(request):
     """View for listing all categories"""

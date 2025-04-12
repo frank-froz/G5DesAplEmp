@@ -13,39 +13,71 @@
             <a class="navbar-brand" href="{% url 'home' %}">
                 <i class="bi bi-book"></i> Library App
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'book_list' %}">
-                            <i class="bi bi-journal-richtext"></i> Books
-                        </a>
+                        <a class="nav-link" href="{% url 'book_list' %}"><i class="bi bi-journal-richtext"></i> Books</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'author_list' %}">
-                            <i class="bi bi-person"></i> Authors
-                        </a>
+                        <a class="nav-link" href="{% url 'author_list' %}"><i class="bi bi-person"></i> Authors</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'category_list' %}">
-                            <i class="bi bi-tag"></i> Categories
-                        </a>
+                        <a class="nav-link" href="{% url 'category_list' %}"><i class="bi bi-tag"></i> Categories</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/">
-                            <i class="bi bi-gear"></i> Admin
-                        </a>
+                        <a class="nav-link" href="/admin/"><i class="bi bi-gear"></i> Admin</a>
                     </li>
                 </ul>
+                
+    
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' %}">
+                                <i class="bi bi-person-circle"></i> {{ user.username }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">
+                                <i class="bi bi-box-arrow-right"></i> Logout
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'reading_list' %}">
+                              <i class="bi bi-book"></i> Reading Lists
+                            </a>
+                          </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">
+                                <i class="bi bi-box-arrow-in-right"></i> Login
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">
+                                <i class="bi bi-person-plus"></i> Register
+                            </a>
+                        </li>
+                    {% endif %}
+                    
+                </ul>
+                
             </div>
+            
         </div>
+        
     </nav>
+    
+
 
     <div class="container">
         {% block content %}{% endblock %}
     </div>
+
+
 
     <footer class="mt-5 py-3 bg-light">
         <div class="container text-center">

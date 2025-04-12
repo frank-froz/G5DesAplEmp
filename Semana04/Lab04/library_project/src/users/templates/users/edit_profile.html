@@ -1,0 +1,14 @@
+<!-- users/templates/users/edit_profile.html -->
+{% extends 'base.html' %}
+
+{% block title %}Mi perfil{% endblock %}
+
+{% block content %}
+<h2>Editar Perfil</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar cambios</button>
+</form>
+
+{% endblock %}

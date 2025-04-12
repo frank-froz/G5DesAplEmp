@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Sesión cerrada{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Has cerrado sesión</h2>
+    <a class="btn btn-secondary mt-3" href="{% url 'login' %}">Iniciar sesión de nuevo</a>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}My Reading Lists{% endblock %}
+
+{% block content %}
+  <h1>My Reading Lists</h1>
+  <ul>
+    {% for reading_list in reading_lists %}
+      <li>
+        <a href="{% url 'reading_list_detail' id=reading_list.id %}">{{ reading_list.name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

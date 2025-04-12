@@ -45,4 +45,3 @@ class PublicationAdmin(admin.ModelAdmin):
     list_display = ('book', 'publisher', 'country', 'date_published')
     list_filter = ('publisher', 'country')
     search_fields = ('book__title', 'publisher__name', 'country')
-

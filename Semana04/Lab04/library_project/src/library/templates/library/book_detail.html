@@ -34,6 +34,41 @@
     </div>
 </div>
 
+<!-- Sección de Reseñas -->
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h2 class="h5 mb-0">Reviews 📜</h2>
+    </div>
+    <div class="card-body">
+        {% if reviews %}
+            <ul class="list-unstyled">
+                {% for review in reviews %}
+                    <li class="mb-3">
+                        <strong>{{ review.user.username }}</strong> 
+                        (Rating: {{ review.rating }} stars) <br>
+                        <p>{{ review.comment }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No reviews yet. Be the first to write a review!</p>
+        {% endif %}
+        <a href="{% url 'book_review' book.id %}" class="btn btn-success">
+            Write a Review ✍️
+        </a>
+    </div>
+    {% if messages %}
+    <div class="alert alert-warning">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
+</div>
+
+
+<!-- Sección de Publicadores -->
 <div class="card">
     <div class="card-header bg-primary text-white">
         <h2 class="h5 mb-0">🏢 Publishers</h2>

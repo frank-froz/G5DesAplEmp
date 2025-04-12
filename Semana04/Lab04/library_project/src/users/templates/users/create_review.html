@@ -1,0 +1,13 @@
+<!-- users/templates/users/create_review.html -->
+{% extends 'base_generic.html' %}
+
+{% block title %}Review: {{ book.title }}{% endblock %}
+
+{% block content %}
+    <h2>Write a Review for {{ book.title }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit Review</button>
+    </form>
+{% endblock %}
