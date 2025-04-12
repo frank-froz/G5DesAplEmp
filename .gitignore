@@ -3,7 +3,7 @@ __pycache__/
 __pycache__/
 *.py[cod]
 *.class
-
+#Ignorando semana 1,2,3
 /Semana 01/
 /Semana 02/
 /Semana03/
