@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Books - Library App{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">📚 All Books</h1>
+
+<div class="row">
+    {% for book in books %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.title }} 📖</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">By {{ book.author.name }} ✍️</h6>
+                    <p class="card-text">
+                        <small class="text-muted">ISBN: {{ book.isbn }} 🔢</small>
+                    </p>
+                    {% if book.publication_date %}
+                        <p class="card-text">
+                            <small class="text-muted">Published: {{ book.publication_date }} 📅</small>
+                        </p>
+                    {% endif %}
+                    <p class="card-text">{{ book.summary|truncatechars:100 }}</p>
+                    <a href="{% url 'book_detail' book.id %}" class="btn btn-primary">View Details 👀</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> No books available yet. 📭
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

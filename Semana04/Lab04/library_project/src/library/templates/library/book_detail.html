@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ book.title }} - Library App{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h1 class="mb-0">{{ book.title }} 📖</h1>
+    </div>
+    <div class="card-body">
+        <h5><strong>Author:</strong> <a href="{% url 'author_detail' book.author.id %}">{{ book.author.name }} ✍️</a></h5>
+        
+        <p><strong>ISBN:</strong> {{ book.isbn }} 🔢</p>
+        
+        {% if book.publication_date %}
+            <p><strong>Publication Date:</strong> {{ book.publication_date }} 📅</p>
+        {% endif %}
+        
+        <div class="mb-3">
+            <strong>Categories:</strong>
+            {% for category in categories %}
+                <a href="{% url 'category_detail' category.slug %}" class="badge bg-secondary text-decoration-none me-1">
+                    {{ category.name }} 🏷️
+                </a>
+            {% empty %}
+                <span class="text-muted">No categories 📭</span>
+            {% endfor %}
+        </div>
+        
+        {% if book.summary %}
+            <h5>Summary 📝</h5>
+            <p>{{ book.summary }}</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h2 class="h5 mb-0">🏢 Publishers</h2>
+    </div>
+    <div class="card-body">
+        {% if publications %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Publisher 🏢</th>
+                            <th>Country 🌍</th>
+                            <th>Date Published 📅</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for publication in publications %}
+                            <tr>
+                                <td>{{ publication.publisher.name }}</td>
+                                <td>{{ publication.country }}</td>
+                                <td>{{ publication.date_published }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> No publisher information available. 📭
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<a href="{% url 'book_list' %}" class="btn btn-secondary mt-4">
+    <i class="bi bi-arrow-left"></i> Back to Books
+</a>
+{% endblock %}

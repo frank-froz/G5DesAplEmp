@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Authors - Library App{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">👨‍🎨 Authors</h1>
+
+<div class="row">
+    {% for author in authors %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ author.name }} ✍️</h5>
+                    {% if author.birth_date %}
+                        <p class="card-text"><small class="text-muted">Born: {{ author.birth_date }} 🎂</small></p>
+                    {% endif %}
+                    <p class="card-text">{{ author.biography|truncatechars:100 }}</p>
+                    <a href="{% url 'author_detail' author.id %}" class="btn btn-primary">View Details 👀</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> No authors available yet. 📭
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

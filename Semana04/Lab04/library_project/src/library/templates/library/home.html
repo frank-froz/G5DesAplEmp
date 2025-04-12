@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Library App - Home{% endblock %}
+
+{% block content %}
+<div class="jumbotron py-5 bg-light rounded">
+    <div class="container text-center">
+        <h1 class="display-4">📚 Welcome to the Library App ✨</h1>
+        <p class="lead">Explore our collection of books, authors, and categories. 🔍</p>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-3">
+        <div class="card text-center mb-4">
+            <div class="card-body">
+                <h5 class="card-title">📕 Books</h5>
+                <p class="card-text display-4">{{ total_books }}</p>
+                <a href="{% url 'book_list' %}" class="btn btn-primary">Browse Books</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center mb-4">
+            <div class="card-body">
+                <h5 class="card-title">👨‍🎨 Authors</h5>
+                <p class="card-text display-4">{{ total_authors }}</p>
+                <a href="{% url 'author_list' %}" class="btn btn-primary">View Authors</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center mb-4">
+            <div class="card-body">
+                <h5 class="card-title">🏷️ Categories</h5>
+                <p class="card-text display-4">{{ total_categories }}</p>
+                <a href="{% url 'category_list' %}" class="btn btn-primary">Explore Categories</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center mb-4">
+            <div class="card-body">
+                <h5 class="card-title">🏢 Publishers</h5>
+                <p class="card-text display-4">{{ total_publishers }}</p>
+                <a href="#" class="btn btn-primary">See Publishers</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5><i class="bi bi-journal-check"></i> Recent Books 📚</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for book in recent_books %}
+                        <li class="list-group-item">
+                            <a href="{% url 'book_detail' book.id %}">{{ book.title }}</a>
+                            <small class="text-muted d-block">by {{ book.author.name }}</small>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No books available yet. 📭</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5><i class="bi bi-tags"></i> Popular Categories 🔝</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for category in categories %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="{% url 'category_detail' category.slug %}">{{ category.name }}</a>
+                            <span class="badge bg-primary rounded-pill">{{ category.book_count }}</span>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No categories available yet. 📭</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

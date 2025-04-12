@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ author.name }} - Library App{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h1 class="mb-0">{{ author.name }} ✍️</h1>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8">
+                {% if author.birth_date %}
+                    <p><strong>Birth Date:</strong> {{ author.birth_date }} 🎂</p>
+                {% endif %}
+                
+                {% if author.biography %}
+                    <h4>Biography 📜</h4>
+                    <p>{{ author.biography }}</p>
+                {% endif %}
+            </div>
+            
+            <div class="col-md-4">
+                {% if author.profile %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>👤 Profile Information</h5>
+                        </div>
+                        <div class="card-body">
+                            {% if author.profile.photo %}
+                                <img src="{{ author.profile.photo.url }}" class="img-fluid rounded mb-3" alt="{{ author.name }}">
+                            {% endif %}
+                            
+                            {% if author.profile.website %}
+                                <p><strong>Website:</strong> <a href="{{ author.profile.website }}" target="_blank">{{ author.profile.website }} 🌐</a></p>
+                            {% endif %}
+                            
+                            {% if author.profile.twitter_handle %}
+                                <p><strong>Twitter:</strong> {{ author.profile.twitter_handle }} 🐦</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>📚 Books by {{ author.name }}</h2>
+
+<div class="row">
+    {% for book in books %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.title }} 📖</h5>
+                    <p class="card-text">
+                        <small class="text-muted">ISBN: {{ book.isbn }} 🔢</small>
+                    </p>
+                    {% if book.publication_date %}
+                        <p class="card-text">
+                            <small class="text-muted">Published: {{ book.publication_date }} 📅</small>
+                        </p>
+                    {% endif %}
+                    <p class="card-text">{{ book.summary|truncatechars:100 }}</p>
+                    <a href="{% url 'book_detail' book.id %}" class="btn btn-primary">View Book 👀</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> This author has no books yet. 📭
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<a href="{% url 'author_list' %}" class="btn btn-secondary mt-4">
+    <i class="bi bi-arrow-left"></i> Back to Authors
+</a>
+{% endblock %}
