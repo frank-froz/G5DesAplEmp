@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 
-{% block title %}My Reading Lists{% endblock %}
+{% block title %}My Reading List{% endblock %}
 
 {% block content %}
-  <h1>My Reading Lists</h1>
-  <ul>
-    {% for reading_list in reading_lists %}
-      <li>
-        <a href="{% url 'reading_list_detail' id=reading_list.id %}">{{ reading_list.name }}</a>
-      </li>
-    {% endfor %}
-  </ul>
+    <h1>My Reading List</h1>
+
+    {% if books %}
+        <ul>
+            {% for book in books %}
+                <li>
+                    <h3>{{ book.title }}</h3>
+                    <a href="{% url 'book_detail' pk=book.id %}">View Details</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No books in your reading list yet. Start adding some!</p>
+    {% endif %}
 {% endblock %}

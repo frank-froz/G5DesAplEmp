@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Add to Reading List{% endblock %}
+
+{% block content %}
+  <h1>Agregar a la lista de lectura: {{ book.title }}</h1>
+  
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <a href="{% url 'book_detail' pk=book.id %}">Cancel</a>
+{% endblock %}

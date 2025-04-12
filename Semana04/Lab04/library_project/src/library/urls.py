@@ -17,4 +17,5 @@ urlpatterns = [
     path('categories/', views.category_list, name='category_list'),
     path('categories/<slug:slug>/', views.category_detail, name='category_detail'),
     
+
 ]

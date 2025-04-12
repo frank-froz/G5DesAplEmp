@@ -34,16 +34,43 @@ def edit_profile(request):
 def profile_view(request):
     return render(request, 'users/profile.html', {'user': request.user})
 
-def reading_list(request):
-    """Vista para mostrar todas las listas de lectura de un usuario"""
-    reading_lists = request.user.reading_lists.all()
-    return render(request, 'users/reading_list.html', {'reading_lists': reading_lists})
-
-
 def reading_list_detail(request, id):
     """Vista para mostrar los detalles de una lista de lectura"""
     reading_list = get_object_or_404(ReadingList, id=id, user=request.user)
     return render(request, 'users/reading_list_detail.html', {'reading_list': reading_list})
+
+@login_required
+def add_to_reading_list(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    reading_list = ReadingList.objects.filter(user=request.user).first()
+
+    # Si no existe una lista de lectura, creamos una
+    if not reading_list:
+        reading_list = ReadingList.objects.create(user=request.user, name="My Reading List")
+
+    # Añadir el libro a la lista de lectura
+    reading_list.books.add(book)
+    reading_list.save()  # Guarda los cambios
+
+    return redirect('reading_list_view')  # Redirige a la vista de la lista de lectura
+
+
+
+@login_required
+def reading_list_view(request):
+    # Asegúrate de que existe una lista de lectura
+    reading_list = ReadingList.objects.filter(user=request.user).first()
+
+    if reading_list:
+        books = reading_list.books.all()  # Obtén los libros de la lista de lectura
+    else:
+        books = []  # Si no hay lista de lectura, asignamos una lista vacía
+
+    context = {
+        'books': books,
+    }
+
+    return render(request, 'users/reading_list.html', context)
 
 
 @login_required
