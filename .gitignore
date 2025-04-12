@@ -3,14 +3,18 @@ __pycache__/
 __pycache__/
 *.py[cod]
 *.class
+# Ignorar semanas
+/Semana 01/
+/Semana 02/
+/Semana03/
 
-# Entorno virtual
-venv/
+# Ignorar venv
+**/venv/
 
 # Archivos de entorno
 .env
 
-# Configuración local
+# Configuraciï¿½n local
 local_settings.py
 
 # Base de datos
