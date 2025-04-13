@@ -12,15 +12,20 @@ class BookView(models.Model):
         return f"View of {self.book.title}"
 
 class CategoryAnalytics(models.Model):
-    """Model to store aggregated category analytics"""
     category = models.OneToOneField(Category, on_delete=models.CASCADE, related_name='analytics')
     total_views = models.PositiveIntegerField(default=0)
     total_books = models.PositiveIntegerField(default=0)
     popularity_score = models.FloatField(default=0)
     last_updated = models.DateTimeField(auto_now=True)
-    
+
+    def update_popularity_score(self):
+        """Actualizar el score de popularidad en base a las vistas"""
+        self.popularity_score = float(self.total_views) / 10  # Ajusta esta fórmula según necesites
+        self.save()
+
     def __str__(self):
         return f"Analytics for {self.category.name}"
+
 
 class AuthorAnalytics(models.Model):
     """Model to store aggregated author analytics"""

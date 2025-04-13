@@ -27,6 +27,19 @@
                 <span class="text-muted">No categories 📭</span>
             {% endfor %}
         </div>
+        <!-- Analytics de Categorías -->
+<div class="mb-3">
+    <strong>Category Analytics:</strong>
+    {% for analytics in category_analytics %}
+        <div>
+            <strong>{{ analytics.category.name }}:</strong> 
+            Total Views: {{ analytics.total_views }} | 
+            Popularity Score: {{ analytics.popularity_score }} 
+        </div>
+    {% empty %}
+        <p class="text-muted">No category analytics available.</p>
+    {% endfor %}
+</div>
         
         {% if book.summary %}
             <h5>Summary 📝</h5>
@@ -35,6 +48,7 @@
         <a href="{% url 'add_to_reading_list' book.id %}" class="btn btn-primary mt-4">
             Add to Reading List 📚
         </a>
+        
         
     </div>
 </div>
@@ -62,10 +76,7 @@
             Write a Review ✍️
         </a>
     </div>
-
-
 </div>
-
 
 <!-- Sección de Publicadores -->
 <div class="card">
@@ -102,7 +113,10 @@
     </div>
 </div>
 
+
+
 <a href="{% url 'book_list' %}" class="btn btn-secondary mt-4">
     <i class="bi bi-arrow-left"></i> Back to Books
 </a>
+
 {% endblock %}
