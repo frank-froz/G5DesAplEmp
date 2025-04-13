@@ -1,9 +1,11 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
-<h2>Are you sure you want to delete "{{ branch.name }}"?</h2>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">✅ Yes, delete</button>
-    <a href="{% url 'branch_list' %}">❌ Cancel</a>
-</form>
+<div class="container mt-4">
+    <h2>Are you sure you want to delete "{{ branch.name }}"?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">🗑️ Confirm Delete</button>
+        <a href="{% url 'management:branch_list' %}" class="btn btn-secondary">↩️ Cancel</a>
+    </form>
+</div>
 {% endblock %}
