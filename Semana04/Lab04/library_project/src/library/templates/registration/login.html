@@ -1,15 +1,30 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Login{% endblock %}
 
+{% block extra_css %}
+
+{% endblock %}
+
 {% block content %}
-<div class="container">
-    <h2>Login</h2>
-    <form method="post">
+<div class="login-container">
+    <h2>Iniciar sesión</h2>
+    <form method="post" class="login-form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+        
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="login-error">{{ field.errors|striptags }}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        
+        <button type="submit" class="login-btn">Iniciar sesión</button>
     </form>
-    <p class="mt-3">¿No tienes cuenta? <a href="{% url 'register' %}">Regístrate</a></p>
+    <p class="login-link">¿No tienes cuenta? <a href="{% url 'register' %}">Regístrate</a></p>
 </div>
 {% endblock %}
