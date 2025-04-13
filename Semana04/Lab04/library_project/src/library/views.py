@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Count
 from .models import Author, Book, Category, Publisher
+from analytics.models import BookView
 
 def home(request):
     """View for home page with library statistics"""
@@ -35,21 +36,30 @@ def book_list(request):
     books = Book.objects.all().select_related('author').order_by('title')
     return render(request, 'library/book_list.html', {'books': books})
 
+from analytics.models import BookView  # 👈 Importa esto arriba
+
 def book_detail(request, pk):
     """View for book details"""
     book = get_object_or_404(Book, pk=pk)
+
+    # Registrar la vista si el usuario está autenticado 👤👀
+    if request.user.is_authenticated:
+        BookView.objects.create(book=book, user=request.user)
+
     # Obtener todas las categorías para este libro 🏷️
     categories = book.categories.all()
+
     # Obtener todas las publicaciones para este libro con detalles de editoriales 🏢
     publications = book.publication_set.select_related('publisher').all()
+
     # Obtener todas las reseñas asociadas a este libro 📖
-    reviews = book.reviews.all()  # Accedemos a las reseñas asociadas al libro
+    reviews = book.reviews.all()
 
     context = {
-        'book': book, 
+        'book': book,
         'categories': categories,
         'publications': publications,
-        'reviews': reviews,  # Añadimos las reseñas al contexto
+        'reviews': reviews,
     }
     return render(request, 'library/book_detail.html', context)
 
