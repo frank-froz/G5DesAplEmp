@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>📚 Library Branches</h1>
+    <a href="{% url 'management:branch_create' %}" class="btn btn-primary mb-3">➕ Add Branch</a>
+
+    {% if branches %}
+        <ul class="list-group">
+            {% for branch in branches %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ branch.name }} - {{ branch.address }}
+                    <div>
+                        <a href="{% url 'management:branch_update' branch.pk %}" class="btn btn-sm btn-warning">✏️ Edit</a>
+                        <a href="{% url 'management:branch_delete' branch.pk %}" class="btn btn-sm btn-danger">🗑️ Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No library branches available.</p>
+    {% endif %}
+</div>
+{% endblock %}

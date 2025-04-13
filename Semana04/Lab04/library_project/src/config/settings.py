@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'library',
     'users',
     'analytics',
+    'management',
 ]
 
 MIDDLEWARE = [
