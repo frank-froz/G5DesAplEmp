@@ -1,4 +1,3 @@
-# movies/tests.py
 from django.test import TestCase
 from django.contrib.auth.models import User
 from datetime import date
