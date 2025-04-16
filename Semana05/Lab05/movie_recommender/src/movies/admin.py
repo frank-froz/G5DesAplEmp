@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.db.models import Avg
 from .models import Director, Actor, Genre, Movie, MovieActor, UserProfile, Rating
-
+from .utils import create_recommendation_admin_action
 
 class RuntimeFilter(admin.SimpleListFilter):
     """Filter movies by runtime range"""
