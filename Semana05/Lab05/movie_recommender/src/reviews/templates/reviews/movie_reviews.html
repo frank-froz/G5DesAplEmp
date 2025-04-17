@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Reseñas para {{ movie.title }}</h2>
+
+<a href="{% url 'add_review' movie.id %}">Agregar reseña</a>
+
+{% for review in reviews %}
+    <div>
+        <h3>{{ review.title }} ({{ review.rating }}/5)</h3>
+        <p>{{ review.content }}</p>
+        <small>Por {{ review.user.username }} - {{ review.created_at }}</small>
+    </div>
+    <hr>
+{% empty %}
+    <p>No hay reseñas aún.</p>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Agregar reseña para {{ movie.title }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="title">Título:</label><br>
+    <input type="text" name="title" required><br><br>
+
+    <label for="content">Contenido:</label><br>
+    <textarea name="content" rows="5" required></textarea><br><br>
+
+    <label for="rating">Puntuación (1 a 5):</label><br>
+    <input type="number" name="rating" min="1" max="5" required><br><br>
+
+    <button type="submit">Publicar reseña</button>
+</form>
+
+<a href="{% url 'movie_reviews' movie.id %}">Volver a reseñas</a>
+{% endblock %}
