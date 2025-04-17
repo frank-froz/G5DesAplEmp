@@ -20,7 +20,7 @@ class Command(BaseCommand):
         Actor.objects.all().delete()
         Genre.objects.all().delete()
         
-        # Create sample directors
+        # Crear directores
         self.stdout.write('Creating directors...')
         directors = [
             Director(
@@ -44,9 +44,12 @@ class Command(BaseCommand):
                 biography="Canadian filmmaker known for his atmospheric, visually striking films."
             ),
         ]
-        Director.objects.bulk_create(directors)
         
-        # Create sample actors
+        # Usamos save() para cada director
+        for director in directors:
+            director.save()
+        
+        # Crear actores
         self.stdout.write('Creating actors...')
         actors = [
             Actor(
@@ -80,9 +83,12 @@ class Command(BaseCommand):
                 biography="Irish and American actress known for her roles in period dramas."
             ),
         ]
-        Actor.objects.bulk_create(actors)
         
-        # Create sample genres
+        # Usamos save() para cada actor
+        for actor in actors:
+            actor.save()
+        
+        # Crear géneros
         self.stdout.write('Creating genres...')
         genres = [
             Genre(name="Action", description="Action films emphasize spectacular physical action."),
@@ -93,14 +99,12 @@ class Command(BaseCommand):
             Genre(name="Romance", description="Romance films focus on love and romantic relationships."),
             Genre(name="Thriller", description="Thriller films maintain high levels of suspense and excitement."),
         ]
-        Genre.objects.bulk_create(genres)
         
-        # Get all created objects
-        directors = list(Director.objects.all())
-        actors = list(Actor.objects.all())
-        genres = list(Genre.objects.all())
+        # Usamos save() para cada género
+        for genre in genres:
+            genre.save()
         
-        # Create sample movies
+        # Crear películas
         self.stdout.write('Creating movies...')
         movies = [
             Movie(
@@ -139,10 +143,12 @@ class Command(BaseCommand):
                 director=directors[0]  # Christopher Nolan
             ),
         ]
+        
+        # Usamos save() para cada película
         for movie in movies:
             movie.save()
             
-            # Add genres to movies
+            # Agregar géneros a las películas
             if movie.title == "Inception":
                 movie.genres.add(genres[3], genres[6])  # Sci-Fi, Thriller
             elif movie.title == "Jurassic Park":
@@ -154,28 +160,22 @@ class Command(BaseCommand):
             elif movie.title == "Interstellar":
                 movie.genres.add(genres[2], genres[3])  # Drama, Sci-Fi
         
-        # Create MovieActor relationships
+        # Crear relaciones MovieActor
         self.stdout.write('Creating movie-actor relationships...')
         movie_actors = [
-            # Inception
             MovieActor(movie=movies[0], actor=actors[0], character_name="Dom Cobb", is_lead=True),
-            
-            # Jurassic Park
             MovieActor(movie=movies[1], actor=actors[2], character_name="Dr. Alan Grant", is_lead=True),
-            
-            # Little Women
             MovieActor(movie=movies[2], actor=actors[5], character_name="Jo March", is_lead=True),
             MovieActor(movie=movies[2], actor=actors[4], character_name="Laurie", is_lead=False),
-            
-            # Dune
             MovieActor(movie=movies[3], actor=actors[4], character_name="Paul Atreides", is_lead=True),
-            
-            # Interstellar
             MovieActor(movie=movies[4], actor=actors[0], character_name="Cooper", is_lead=True),
         ]
-        MovieActor.objects.bulk_create(movie_actors)
         
-        # Create users
+        # Usamos save() para cada relación
+        for movie_actor in movie_actors:
+            movie_actor.save()
+        
+        # Crear usuarios
         self.stdout.write('Creating users...')
         users = []
         for i in range(1, 6):
@@ -187,17 +187,16 @@ class Command(BaseCommand):
             )
             users.append(user)
             
-            # Create user profile
+            # Crear perfil de usuario
             profile = UserProfile.objects.create(user=user, bio=f"Bio for {username}")
             
-            # Add favorite genres
+            # Agregar géneros favoritos
             profile.favorite_genres.add(*random.sample(list(Genre.objects.all()), 2))
         
-        # Create ratings
+        # Crear valoraciones
         self.stdout.write('Creating ratings...')
         ratings = []
         for user in users:
-            # Each user rates 2-4 random movies
             for movie in random.sample(list(Movie.objects.all()), random.randint(2, 4)):
                 rating = Rating(
                     user=user,
@@ -209,7 +208,7 @@ class Command(BaseCommand):
         
         Rating.objects.bulk_create(ratings)
         
-        # Update average ratings
+        # Actualizar valoraciones promedio
         for movie in Movie.objects.all():
             movie.update_avg_rating()
         
