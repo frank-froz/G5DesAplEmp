@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 
+{% block title %}Profile{% endblock %}
+
 {% block content %}
-  <div class="container mt-4">
-    <h2>Perfil de {{ user.username }}</h2>
-    <p>Bienvenido/a, {{ user.username }}.</p>
-    <p><a href="{% url 'logout' %}">Cerrar sesión</a></p>
-  </div>
+<h2 class="mb-4">👤 Profile</h2>
+<ul class="list-group">
+  <li class="list-group-item"><strong>Username:</strong> {{ user.username }}</li>
+  <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
+  <li class="list-group-item"><strong>First name:</strong> {{ user.first_name }}</li>
+  <li class="list-group-item"><strong>Last name:</strong> {{ user.last_name }}</li>
+</ul>
+<a href="{% url 'movie_list' %}" class="btn btn-primary mt-4">Back to Movies</a>
 {% endblock %}
