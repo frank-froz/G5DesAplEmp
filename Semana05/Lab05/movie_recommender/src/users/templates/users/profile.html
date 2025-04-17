@@ -13,15 +13,13 @@
 
 <h3>📝 Your Reviews</h3>
 {% if reviews %}
-  <ul class="list-group">
-    {% for review in reviews %}
-      <li class="list-group-item">
-        <strong>{{ review.movie.title }}</strong> — Rated {{ review.rating }}/10
-        <br><small>{{ review.text|truncatewords:20 }}</small>
-        <br><small class="text-muted">{{ review.created_at|date:"M j, Y H:i" }}</small>
-      </li>
-    {% endfor %}
-  </ul>
+<ul>
+  {% for review in reviews %}
+  <p><strong>{{ review.movie.title }}</strong>: {{ review.content }} - {{ review.rating }}/5</p>
+{% empty %}
+      <li>You have not posted any reviews yet.</li>
+  {% endfor %}
+</ul>
 {% else %}
   <p class="text-muted">You haven't written any reviews yet.</p>
 {% endif %}

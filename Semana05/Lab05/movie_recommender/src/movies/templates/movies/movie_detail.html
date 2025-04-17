@@ -4,6 +4,14 @@
 
 {% block content %}
 <h1>{{ movie.title }}</h1>
+{% if user.is_authenticated %}
+  {% if user_review_exists %}
+    <p class="text-muted">Ya escribiste una reseña para esta película. ✍️</p>
+  {% else %}
+    <a href="{% url 'add_review' movie.id %}" class="btn btn-primary">Añadir Reseña</a>
+  {% endif %}
+{% endif %}
+
 <p><strong>Description:</strong> {{ movie.plot }}</p>
 <p><strong>Genres:</strong> {{ movie.genres.all|join:", " }}</p>
 <p><strong>Average Rating:</strong> {{ movie.avg_rating }}</p>
