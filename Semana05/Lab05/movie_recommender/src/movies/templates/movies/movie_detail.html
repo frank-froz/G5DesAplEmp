@@ -4,8 +4,8 @@
 
 {% block content %}
 <h1>{{ movie.title }}</h1>
-<p><strong>Description:</strong> {{ movie.description }}</p>
+<p><strong>Description:</strong> {{ movie.plot }}</p>
 <p><strong>Genres:</strong> {{ movie.genres.all|join:", " }}</p>
-<p><strong>Average Rating:</strong> {{ movie.average_rating }}</p>
+<p><strong>Average Rating:</strong> {{ movie.avg_rating }}</p>
 <a href="{% url 'movie_list' %}" class="btn btn-secondary">Back to list</a>
 {% endblock %}

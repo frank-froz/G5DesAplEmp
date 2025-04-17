@@ -126,7 +126,7 @@ class MovieActor(models.Model):
 
 class UserProfile(models.Model):
     """Extended user information"""
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='movies_profile')
     bio = models.TextField(blank=True)
     favorite_genres = models.ManyToManyField(Genre, blank=True, related_name='fans')
     favorite_movies = models.ManyToManyField(Movie, blank=True, related_name='fans')

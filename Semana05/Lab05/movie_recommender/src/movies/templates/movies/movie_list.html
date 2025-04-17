@@ -10,7 +10,7 @@
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">{{ movie.title }}</h5>
-                    <p class="card-text">{{ movie.description|truncatewords:20 }}</p>
+                    <p class="card-text">{{ movie.plot|truncatewords:20 }}</p>
                     <a href="{% url 'movie_detail' movie.pk %}" class="btn btn-primary">Details</a>
                 </div>
             </div>
