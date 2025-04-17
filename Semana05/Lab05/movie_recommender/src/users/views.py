@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from users.forms import CustomUserCreationForm
 from django.contrib.auth import login,logout
+from reviews.models import Review
+from users.forms import CustomUserCreationForm
 
 
 def register(request):
@@ -29,4 +30,17 @@ def logout_view(request):
 
 @login_required
 def profile_view(request):
-    return render(request, 'users/profile.html', {'user': request.user})
+    user_reviews = Review.objects.filter(user=request.user).select_related('movie')
+    return render(request, 'users/profile.html', {
+        'user': request.user,
+        'reviews': user_reviews
+    })
+
+
+@login_required
+def profile_view(request):
+    user_reviews = Review.objects.filter(user=request.user)
+    return render(request, 'users/profile.html', {
+        'user': request.user,
+        'reviews': user_reviews
+    })

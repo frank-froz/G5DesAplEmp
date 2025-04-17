@@ -1,14 +1,28 @@
-{% extends 'base.html' %}
-
-{% block title %}Profile{% endblock %}
+{% extends 'movies/base.html' %}
+{% block title %}My Profile{% endblock %}
 
 {% block content %}
-<h2 class="mb-4">👤 Profile</h2>
-<ul class="list-group">
-  <li class="list-group-item"><strong>Username:</strong> {{ user.username }}</li>
-  <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
-  <li class="list-group-item"><strong>First name:</strong> {{ user.first_name }}</li>
-  <li class="list-group-item"><strong>Last name:</strong> {{ user.last_name }}</li>
-</ul>
-<a href="{% url 'movie_list' %}" class="btn btn-primary mt-4">Back to Movies</a>
+<h1 class="mb-4">👤 {{ user.username }}'s Profile</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Date joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+    </div>
+</div>
+
+<h3>📝 Your Reviews</h3>
+{% if reviews %}
+  <ul class="list-group">
+    {% for review in reviews %}
+      <li class="list-group-item">
+        <strong>{{ review.movie.title }}</strong> — Rated {{ review.rating }}/10
+        <br><small>{{ review.text|truncatewords:20 }}</small>
+        <br><small class="text-muted">{{ review.created_at|date:"M j, Y H:i" }}</small>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="text-muted">You haven't written any reviews yet.</p>
+{% endif %}
 {% endblock %}
