@@ -36,7 +36,11 @@ def add_review(request, movie_id):
 
 @login_required
 def edit_review(request, review_id):
-    review = get_object_or_404(Review, pk=review_id, user=request.user)
+    review = get_object_or_404(Review, pk=review_id)
+
+    # Asegurarse de que el usuario que intenta editar la reseña sea el autor de la misma
+    if review.user != request.user:
+        return redirect('movie_detail', pk=review.movie.id)
 
     if request.method == 'POST':
         form = ReviewForm(request.POST, instance=review)
@@ -47,7 +51,6 @@ def edit_review(request, review_id):
         form = ReviewForm(instance=review)
 
     return render(request, 'reviews/edit_review.html', {'form': form, 'review': review})
-
 
 @login_required
 def delete_review(request, review_id):

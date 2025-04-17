@@ -13,11 +13,18 @@
 
 <h3>📝 Your Reviews</h3>
 {% if reviews %}
-<ul>
+<ul class="list-group">
   {% for review in reviews %}
-  <p><strong>{{ review.movie.title }}</strong>: {{ review.content }} - {{ review.rating }}/5</p>
-{% empty %}
-      <li>You have not posted any reviews yet.</li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div>
+        <strong>{{ review.movie.title }}</strong>: "{{ review.title }}" - {{ review.rating }}/5  
+        <p class="mb-0 text-muted">{{ review.content|truncatechars:100 }}</p>
+      </div>
+      <div>
+        <a href="{% url 'edit_review' review.id %}" class="btn btn-sm btn-outline-primary me-2">Edit</a>
+        <a href="{% url 'delete_review' review.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+      </div>
+    </li>
   {% endfor %}
 </ul>
 {% else %}
