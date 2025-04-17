@@ -1,0 +1,22 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}Movie List{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Movies</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for movie in movies %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie.title }}</h5>
+                    <p class="card-text">{{ movie.description|truncatewords:20 }}</p>
+                    <a href="{% url 'movie_detail' movie.pk %}" class="btn btn-primary">Details</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>No movies available.</p>
+    {% endfor %}
+</div>
+{% endblock %}

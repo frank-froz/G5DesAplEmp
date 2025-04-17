@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>Perfil de {{ user.username }}</h2>
+    <p>Bienvenido/a, {{ user.username }}.</p>
+    <p><a href="{% url 'logout' %}">Cerrar sesión</a></p>
+  </div>
+{% endblock %}
