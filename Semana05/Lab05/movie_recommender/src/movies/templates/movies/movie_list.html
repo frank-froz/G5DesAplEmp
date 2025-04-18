@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
 
-{% block title %}Movie List{% endblock %}
+{% block title %}Películas{% endblock %}
+
+{% load static %}
 
 {% block content %}
-<h1 class="mb-4">Movies</h1>
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<h1 class="mb-4">🎬 Lista de Películas</h1>
+
+<div class="movie-grid">
     {% for movie in movies %}
-        <div class="col">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">{{ movie.title }}</h5>
-                    <p class="card-text">{{ movie.plot|truncatewords:20 }}</p>
-                    <a href="{% url 'movie_detail' movie.pk %}" class="btn btn-primary">Details</a>
-                </div>
+        <div class="movie-card">
+            <a href="{% url 'movie_detail' movie.id %}">
+                <img src="{% if movie.poster %}{{ movie.poster.url }}{% else %}{% static 'images/default-poster.jpg' %}{% endif %}" alt="{{ movie.title }}" class="movie-poster">
+            </a>
+            <div class="movie-details">
+                <h5>{{ movie.title }}</h5>
             </div>
         </div>
-    {% empty %}
-        <p>No movies available.</p>
     {% endfor %}
 </div>
 {% endblock %}

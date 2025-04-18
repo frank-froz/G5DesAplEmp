@@ -137,3 +137,8 @@ LOGOUT_REDIRECT_URL = 'login'
 # Para cargar los templates
 import os
 TEMPLATES[0]['DIRS'] = [os.path.join(BASE_DIR, 'templates')]
+
+STATIC_URL = '/static/'
+
+# Si estás en desarrollo, también:
+STATICFILES_DIRS = [BASE_DIR / 'static']
