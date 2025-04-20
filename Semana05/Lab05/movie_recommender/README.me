@@ -1,1 +1,113 @@
+# 🎬 Movie Recommender
 
+A web-based platform built with Django for recommending movies, allowing users to browse, rate, and review films. It also supports authentication and profile management.
+
+---
+
+## 🚀 Features Implemented
+
+- ✅ **User Authentication:** Login, logout, and registration system.
+- ✅ **Movie List:** Browse a dynamic grid of movies with posters and titles.
+- ✅ **Movie Detail View:** View full movie details including plot, director, genres, cast, and rating.
+- ✅ **Admin Panel:** Add, edit, and manage movies, directors, actors, and genres.
+- ✅ **Responsive UI:** Clean and simple interface styled with Bootstrap and custom CSS.
+- ✅ **CRUD Functionality:** Basic CRUD for movies and related entities.
+- ✅ **Seeded Movie Data:** Popular movies preloaded for testing and demonstration.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Backend:** Python, Django 5.0+
+- **Frontend:** HTML, CSS, Bootstrap
+- **Database:** SQLite (dev)
+- **Other Tools:** Django Admin, Static Files, Media Uploads
+
+---
+
+## 📁 Project Structure
+
+movie_recommender/ │
+├── movies/ # Movie-related models, views, templates
+├── reviews/ # Movie reviews app (work in progress)
+├── users/ # Authentication and user profiles
+├── templates/ # Shared and app-specific templates
+├── static/ # Static files (CSS, images)
+├── media/ # Uploaded media (posters, etc.)
+└── manage.py
+
+
+---
+
+## 🎥 Current Movie Catalog
+
+A few examples of the movies currently loaded:
+
+- Dune: Part Two
+- Oppenheimer
+- Poor Things
+- Past Lives
+- The Zone of Interest
+- Barbie
+- Spider-Man: Across the Spider-Verse
+- Anatomy of a Fall
+- Minecraft (upcoming)
+- Flow (2024)
+
+You can add more using the Django admin panel or via the form if enabled.
+
+---
+
+## 🔒 Authentication
+
+Users can:
+- Register an account
+- Log in/out securely
+- Access features based on authentication status
+
+---
+
+## 💻 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/frank-froz/G5DesAplEmp.git
+cd G5DesAplEmp/Semana05/Lab05/movie_recommender
+
+
+2. Create and activate a virtual environment
+bash
+Copiar
+Editar
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+3. Install dependencies
+bash
+Copiar
+Editar
+pip install -r requirements.txt
+4. Run migrations and start server
+bash
+Copiar
+Editar
+python manage.py migrate
+python manage.py runserver
+Visit http://127.0.0.1:8000/ to see the app running.
+
+🧠 Future Features
+🎯 Recommendation algorithm based on user preferences
+
+📚 User watchlist and favorites
+
+📝 Movie reviews and ratings by users
+
+🔍 Movie search and filter system
+
+📊 Analytics dashboard
+
+🌐 API support for external data
+
+🤝 Contributing
+Contributions are welcome! Feel free to fork this repo and open pull requests.
