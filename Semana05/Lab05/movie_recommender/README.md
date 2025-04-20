@@ -75,7 +75,7 @@ This project is a **Movie Recommender System** built with Django 5.0. It allows 
 
 </details>
 
-##📌 To Do (Coming Soon)
+## 📌 To Do (Coming Soon)
 - Movie search by title or genre
 - User profile pages
 - Personalized recommendations
