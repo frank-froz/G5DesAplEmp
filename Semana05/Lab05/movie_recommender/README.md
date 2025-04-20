@@ -68,9 +68,9 @@ This project is a **Movie Recommender System** built with Django 5.0. It allows 
 ##### 6. Run the development server
 	python manage.py runserver
 
-📸 Screenshots 
-<details> <summary>Movie List View</summary>
-
+## 📸 Screenshots 
+<details> <summary>Movie List View (slide) </summary> 
+	
 ![](https://github.com/frank-froz/G5DesAplEmp/blob/main/Semana05/Lab05/movie_recommender/static/screenshots/movie-list.png )
 
 </details>
