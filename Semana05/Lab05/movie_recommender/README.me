@@ -1,113 +1,88 @@
-# 🎬 Movie Recommender
+<p align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Django_logo.svg" width="100" alt="Django Logo">
+</p>
 
-A web-based platform built with Django for recommending movies, allowing users to browse, rate, and review films. It also supports authentication and profile management.
+<h1 align="center">🎬 Movie Recommender</h1>
 
----
-
-## 🚀 Features Implemented
-
-- ✅ **User Authentication:** Login, logout, and registration system.
-- ✅ **Movie List:** Browse a dynamic grid of movies with posters and titles.
-- ✅ **Movie Detail View:** View full movie details including plot, director, genres, cast, and rating.
-- ✅ **Admin Panel:** Add, edit, and manage movies, directors, actors, and genres.
-- ✅ **Responsive UI:** Clean and simple interface styled with Bootstrap and custom CSS.
-- ✅ **CRUD Functionality:** Basic CRUD for movies and related entities.
-- ✅ **Seeded Movie Data:** Popular movies preloaded for testing and demonstration.
+<p align="center">
+  A Django-based movie recommendation system with authentication, reviews, and dynamic UI.
+</p>
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 Project Overview
 
-- **Backend:** Python, Django 5.0+
-- **Frontend:** HTML, CSS, Bootstrap
-- **Database:** SQLite (dev)
-- **Other Tools:** Django Admin, Static Files, Media Uploads
+This project is a **Movie Recommender System** built with Django 5.0. It allows users to:
 
----
-
-## 📁 Project Structure
-
-movie_recommender/ │
-├── movies/ # Movie-related models, views, templates
-├── reviews/ # Movie reviews app (work in progress)
-├── users/ # Authentication and user profiles
-├── templates/ # Shared and app-specific templates
-├── static/ # Static files (CSS, images)
-├── media/ # Uploaded media (posters, etc.)
-└── manage.py
-
+- Explore a list of movies 🎥
+- View movie details, posters, and genres 🧾
+- Register, log in, and log out securely 🔐
+- Leave ratings and reviews ⭐
+- Add, edit, and delete movies (admin) 🛠️
 
 ---
 
-## 🎥 Current Movie Catalog
+## 🛠️ Features Implemented
 
-A few examples of the movies currently loaded:
-
-- Dune: Part Two
-- Oppenheimer
-- Poor Things
-- Past Lives
-- The Zone of Interest
-- Barbie
-- Spider-Man: Across the Spider-Verse
-- Anatomy of a Fall
-- Minecraft (upcoming)
-- Flow (2024)
-
-You can add more using the Django admin panel or via the form if enabled.
+- ✅ Movies app with list and detail views
+- ✅ Beautiful movie grid view styled like Netflix
+- ✅ Image handling with default fallback
+- ✅ Django Admin site configured for models
+- ✅ Authentication system (login, register, logout)
+- ✅ Responsive layout with Bootstrap
 
 ---
 
-## 🔒 Authentication
+## 🧪 Tech Stack
 
-Users can:
-- Register an account
-- Log in/out securely
-- Access features based on authentication status
+- **Backend:** Django 5.0
+- **Frontend:** HTML, Bootstrap
+- **Database:** SQLite (default)
+- **Auth:** Django Authentication System
 
 ---
 
-## 💻 Getting Started
-
-### 1. Clone the repository
+## 🧰 Setup Instructions
 
 ```bash
+# 1. Clone the repository
 git clone https://github.com/frank-froz/G5DesAplEmp.git
 cd G5DesAplEmp/Semana05/Lab05/movie_recommender
 
-
-2. Create and activate a virtual environment
-bash
-Copiar
-Editar
+# 2. (Optional) Create a virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate        # On Linux/Mac
+venv\Scripts\activate           # On Windows
 
-3. Install dependencies
-bash
-Copiar
-Editar
+# 3. Install dependencies
 pip install -r requirements.txt
-4. Run migrations and start server
-bash
-Copiar
-Editar
+
+# 4. Apply migrations
 python manage.py migrate
+
+# 5. Create superuser (optional for admin access)
+python manage.py createsuperuser
+
+# 6. Run the development server
 python manage.py runserver
-Visit http://127.0.0.1:8000/ to see the app running.
 
-🧠 Future Features
-🎯 Recommendation algorithm based on user preferences
+📸 Screenshots 
+<details> <summary>Movie List View</summary>
+c:\Users\sebas\OneDrive\Imágenes\Capturas de pantalla\Captura de pantalla 2025-04-20 162622.png
+</details>
 
-📚 User watchlist and favorites
+📌 To Do (Coming Soon)
+ Movie search by title or genre
 
-📝 Movie reviews and ratings by users
+ User profile pages
 
-🔍 Movie search and filter system
+ Personalized recommendations
 
-📊 Analytics dashboard
+ Like/Dislike system
 
-🌐 API support for external data
+ Follow other users
 
-🤝 Contributing
-Contributions are welcome! Feel free to fork this repo and open pull requests.
+📜 License
+MIT License – see the LICENSE file for details.
+
+<p align="center">Made with ❤️ by the KaiMaki team</p> ```
