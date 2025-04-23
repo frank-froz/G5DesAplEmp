@@ -1,0 +1,23 @@
+{% extends "news/base.html" %}
+
+{% block title %}{{ article.title }} - Django News Portal{% endblock %}
+
+{% block content %}
+    <article class="article-card">
+        <h2 class="article-card__title">{{ article.title }}</h2>
+        
+        <div class="article-card__meta">
+            <span>By {{ article.author.username }}</span>
+            <span>in {{ article.category.name }}</span>
+            <span>on {{ article.published_date|date:"F j, Y" }}</span>
+        </div>
+        
+        {% if article.image %}
+            <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-card__image">
+        {% endif %}
+        
+        <div class="article-card__content">
+            {{ article.content|linebreaks }}
+        </div>
+    </article>
+{% endblock %}
