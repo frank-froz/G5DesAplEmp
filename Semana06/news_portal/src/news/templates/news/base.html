@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Django News Portal{% endblock %}</title>
+    <style>
+        /* Dark theme using BEM methodology */
+        :root {
+            --color-primary: #23B5E8;
+            --color-secondary: #234B96;
+            --color-black: #010508;
+            --color-dark: #121212;
+            --color-dark-lighter: #1E1E1E;
+            --color-text: #E0E0E0;
+            --color-text-muted: #AAAAAA;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--color-text);
+            background-color: var(--color-black);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Component */
+        .header {
+            background-color: var(--color-dark);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--color-primary);
+        }
+        
+        .header__title {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+        
+        /* Navigation Component */
+        .nav__list {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav__item {
+            margin-right: 1rem;
+        }
+        
+        .nav__link {
+            color: var(--color-text);
+            text-decoration: none;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        
+        .nav__link:hover {
+            border-color: var(--color-primary);
+        }
+        
+        /* Layout Component */
+        .layout {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .layout__main {
+            flex: 3;
+            min-width: 60%;
+        }
+        
+        .layout__sidebar {
+            flex: 1;
+            min-width: 250px;
+            margin-left: 1rem;
+            background-color: var(--color-dark-lighter);
+            padding: 1rem;
+            border-radius: 4px;
+        }
+        
+        /* Article Component */
+        .article-card {
+            background-color: var(--color-dark-lighter);
+            border-left: 3px solid var(--color-primary);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .article-card__title {
+            color: var(--color-primary);
+            margin-top: 0;
+        }
+        
+        .article-card__link {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+        
+        .article-card__meta {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-card__image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        
+        .article-card__content {
+            margin-top: 1rem;
+        }
+        
+        /* Sidebar Components */
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar-section__title {
+            color: var(--color-primary);
+            border-bottom: 1px solid var(--color-secondary);
+            padding-bottom: 0.5rem;
+        }
+        
+        .sidebar-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sidebar-list__item {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-list__link {
+            color: var(--color-text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .sidebar-list__link:hover {
+            color: var(--color-primary);
+        }
+        
+        /* Footer Component */
+        .footer {
+            background-color: var(--color-dark);
+            color: var(--color-text-muted);
+            padding: 1rem;
+            margin-top: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--color-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1><a href="{% url 'news:home' %}" class="header__title">Django News Portal</a></h1>
+        <nav class="nav">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="{% url 'news:home' %}" class="nav__link">Home</a></li>
+                <li class="nav__item"><a href="{% url 'admin:index' %}" class="nav__link">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="layout">
+        <main class="layout__main">
+            {% block content %}
+            <!-- Main content will go here -->
+            {% endblock %}
+        </main>
+        
+        <aside class="layout__sidebar">
+            <section class="sidebar-section">
+                <h3 class="sidebar-section__title">Categories</h3>
+                <ul class="sidebar-list">
+                    {% for category in categories %}
+                        <li class="sidebar-list__item">
+                            <a href="{{ category.get_absolute_url }}" class="sidebar-list__link">{{ category.name }}</a>
+                        </li>
+                    {% empty %}
+                        <li class="sidebar-list__item">No categories available</li>
+                    {% endfor %}
+                </ul>
+            </section>
+            
+            <section class="sidebar-section">
+                <h3 class="sidebar-section__title">Recent Articles</h3>
+                <ul class="sidebar-list">
+                    {% for article in recent_articles %}
+                        <li class="sidebar-list__item">
+                            <a href="{{ article.get_absolute_url }}" class="sidebar-list__link">{{ article.title }}</a>
+                        </li>
+                    {% empty %}
+                        <li class="sidebar-list__item">No recent articles</li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </aside>
+    </div>
+    
+    <footer class="footer">
+        <p>&copy; {% now "Y" %} Django News Portal - A learning project</p>
+    </footer>
+</body>
+</html>
