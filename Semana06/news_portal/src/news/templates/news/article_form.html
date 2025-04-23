@@ -1,0 +1,21 @@
+{% extends "news/base.html" %}
+
+{% block title %}
+  {% if object %}Edit {{ object.title }}{% else %}Create New Article{% endif %}
+{% endblock %}
+
+{% block content %}
+  <h2>{% if object %}Edit Article{% else %}Create New Article{% endif %}</h2>
+  
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+  </form>
+  
+  {% if object %}
+    <a href="{{ object.get_absolute_url }}">Cancel</a>
+  {% else %}
+    <a href="{% url 'news:home' %}">Cancel</a>
+  {% endif %}
+{% endblock %}
