@@ -425,7 +425,10 @@ class Command(BaseCommand):
             if created:
                 # Add tags
                 for tag_name in data['tags']:
-                    tag = Tag.objects.get(name=tag_name)
+                    tag, _ = Tag.objects.get_or_create(
+                        name=tag_name,
+                        defaults={'slug': slugify(tag_name)}
+                    )
                     post.tags.add(tag)
                 
                 self.stdout.write(f"  Created post: {post.title} ✅")
