@@ -99,3 +99,27 @@ class TagPostListView(ListView):
             posts_count=Count('posts')
         ).order_by('-posts_count')[:10]
         return context
+
+
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    """View for creating a new comment on a post"""
+    model = Comment
+    template_name = 'blog/comment_form.html'
+    fields = ['content']
+    
+    def form_valid(self, form):
+        """Associate comment with the post and user"""
+        form.instance.author = self.request.user
+        form.instance.post = Post.objects.get(slug=self.kwargs['slug'])
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        """Redirect to the post detail page after successful comment"""
+        return reverse_lazy('blog:post_detail', kwargs={'slug': self.kwargs['slug']})
+    
+    def get_context_data(self, **kwargs):
+        """Add post to context"""
+        context = super().get_context_data(**kwargs)
+        context['post'] = Post.objects.get(slug=self.kwargs['slug'])
+        return context
