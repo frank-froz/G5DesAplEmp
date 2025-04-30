@@ -1,0 +1,14 @@
+<!-- news/templates/news/register.html -->
+
+{% extends "news/base.html" %}
+
+{% block title %}Registro{% endblock %}
+
+{% block content %}
+  <h2>Registrar Cuenta</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Registrar</button>
+  </form>
+{% endblock %}
