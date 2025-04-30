@@ -33,15 +33,16 @@ class PostManager(models.Manager):
         """Return posts with their comment counts"""
         return self.annotate(total_comments=Count('comments'))
     
-    def recent_posts(self, count=5):
-        """Return most recent posts"""
-        return self.published().order_by('-published_at')[:count]
-    
-    def popular_posts(self, count=5):
-        """Return posts with most comments"""
+    def recent_posts(self):
+        """Return most recent posts (slice it later)"""
+        return self.published().order_by('-published_at')
+
+    def popular_posts(self):
+        """Return posts with most comments (slice it later)"""
         return self.published().annotate(
             total_comments=Count('comments')
-        ).order_by('-total_comments')[:count]
+        ).order_by('-total_comments')
+
 
 
 class CommentManager(models.Manager):

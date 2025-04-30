@@ -28,8 +28,7 @@ class PostListView(ListView):
         context['recent_posts'] = Post.blog_objects.recent_posts()
         return context
 
-
-class PostDetailView(DetailView):
+class PostDetailView(DetailView): 
     """View for displaying a single post with comments"""
     model = Post
     template_name = 'blog/post_detail.html'
@@ -42,16 +41,24 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         """Add additional context data"""
         context = super().get_context_data(**kwargs)
-        context['comments'] = self.object.comments.filter(is_approved=True)
+        
+        # Usa el manager personalizado para obtener los comentarios aprobados
+        context['comments'] = Comment.blog_objects.approved().filter(post=self.object)
+        
+        # Obtiene las categorías, etiquetas y publicaciones recientes
         context['categories'] = Category.objects.all()
+        
+        # Utiliza un prefetch_related para cargar las etiquetas y evitar el 'slice'
         context['tags'] = Tag.objects.annotate(
             posts_count=Count('posts')
         ).order_by('-posts_count')[:10]
+        
+        # Asegura que las publicaciones recientes no tengan un 'slice' aplicado
         context['recent_posts'] = Post.blog_objects.recent_posts().exclude(
             id=self.object.id
         )
+        
         return context
-
 
 class CategoryPostListView(ListView):
     """View for listing posts in a specific category"""
@@ -99,8 +106,6 @@ class TagPostListView(ListView):
             posts_count=Count('posts')
         ).order_by('-posts_count')[:10]
         return context
-
-
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
     """View for creating a new comment on a post"""
