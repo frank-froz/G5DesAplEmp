@@ -22,6 +22,24 @@
                     <i class="fas fa-lock"></i> Admin
                 </a></li>
             </ul>
+            <li class="nav__item nav__item--user">
+                {% if user.is_authenticated %}
+                    <div class="user-menu">
+                        <span class="user-greeting">Hola, {{ user.username }}</span>
+                        <form action="{% url 'users:logout' %}" method="post" class="logout-form">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-button">
+                                <i class="fas fa-sign-out-alt"></i> Salir
+                            </button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="auth-links">
+                        <a href="{% url 'users:login' %}" class="auth-link login-link">Ingresar</a>
+                        <a href="{% url 'users:register' %}" class="auth-link register-link">Registrarse</a>
+                    </div>
+                {% endif %}
+            </li>
         </nav>
     </header>
     
