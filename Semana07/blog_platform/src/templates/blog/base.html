@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Django Blog Platform{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <h1><a href="{% url 'blog:post_list' %}" class="header__title">
+            <i class="fas fa-blog"></i> Django Blog Platform
+        </a></h1>
+        <nav class="header__nav">
+            <ul class="header__nav-list">
+                <li><a href="{% url 'blog:post_list' %}" class="header__nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a></li>
+                <li><a href="{% url 'admin:index' %}" class="header__nav-link">
+                    <i class="fas fa-lock"></i> Admin
+                </a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="layout">
+        <main class="layout__main">
+            {% block content %}
+            <!-- Main content will go here -->
+            {% endblock %}
+        </main>
+        
+        <aside class="layout__sidebar">
+            <section class="sidebar__section">
+                <h3 class="sidebar__title">
+                    <i class="fas fa-folder"></i> Categories
+                </h3>
+                <ul class="sidebar__list">
+                    {% for category in categories %}
+                        <li class="sidebar__item">
+                            <a href="{% url 'blog:category_detail' category.slug %}" class="sidebar__link">
+                                {{ category.name }} {% if category.posts_count %}({{ category.posts_count }}){% endif %}
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li class="sidebar__item">No categories available</li>
+                    {% endfor %}
+                </ul>
+            </section>
+            
+            <section class="sidebar__section">
+                <h3 class="sidebar__title">
+                    <i class="fas fa-clock"></i> Recent Posts
+                </h3>
+                <ul class="sidebar__list">
+                    {% for post in recent_posts %}
+                        <li class="sidebar__item">
+                            <a href="{% url 'blog:post_detail' post.slug %}" class="sidebar__link">
+                                {{ post.title }}
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li class="sidebar__item">No recent posts</li>
+                    {% endfor %}
+                </ul>
+            </section>
+            
+            <section class="sidebar__section">
+                <h3 class="sidebar__title">
+                    <i class="fas fa-tags"></i> Popular Tags
+                </h3>
+                <div class="post__tags">
+                    {% for tag in tags %}
+                        <a href="{% url 'blog:tag_detail' tag.slug %}" class="tag">
+                            {{ tag.name }} ({{ tag.posts_count }})
+                        </a>
+                    {% empty %}
+                        <p>No tags available</p>
+                    {% endfor %}
+                </div>
+            </section>
+        </aside>
+    </div>
+    
+    <footer class="footer">
+        <p>&copy; {% now "Y" %} Django Blog Platform - ORM Mastery Project</p>
+    </footer>
+    
+    <script src="/static/js/main.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
