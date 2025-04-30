@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Django News Portal{% endblock %}</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+      
     <style>
         /* Dark theme using BEM methodology */
         :root {
@@ -26,17 +30,55 @@
             padding: 0 20px;
         }
         
+        :root {
+            --color-dark: #1a1a2e;
+            --color-primary: #4cc9f0;
+            --color-secondary: #4361ee;
+            --color-text: #f8f9fa;
+            --color-text-light: #adb5bd;
+            --color-accent: #f72585;
+            --spacing-unit: 1rem;
+            --border-radius: 4px;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
         /* Header Component */
         .header {
             background-color: var(--color-dark);
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid var(--color-primary);
+            padding: var(--spacing-unit) 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .header__container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-unit);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header__logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
         }
         
         .header__title {
             color: var(--color-primary);
-            text-decoration: none;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+        
+        .header__title:hover {
+            color: var(--color-secondary);
+            transform: scale(1.02);
         }
         
         /* Navigation Component */
@@ -45,22 +87,160 @@
             list-style: none;
             padding: 0;
             margin: 0;
+            align-items: center;
+            gap: var(--spacing-unit);
         }
         
         .nav__item {
-            margin-right: 1rem;
+            position: relative;
+        }
+        
+        .nav__item--user {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
         }
         
         .nav__link {
             color: var(--color-text);
             text-decoration: none;
-            padding: 0.5rem 0;
-            border-bottom: 2px solid transparent;
-            transition: border-color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: 500;
+            display: block;
         }
         
         .nav__link:hover {
-            border-color: var(--color-primary);
+            color: var(--color-primary);
+            background-color: rgba(76, 201, 240, 0.1);
+        }
+        
+        /* User Menu Styles */
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-unit);
+        }
+        
+        .user-greeting {
+            color: var(--color-primary);
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
+        
+        .logout-form {
+            display: inline;
+        }
+        
+        .logout-button {
+            background: none;
+            border: none;
+            color: var(--color-text-light);
+            cursor: pointer;
+            padding: 0.5rem;
+            font-family: inherit;
+            font-size: inherit;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .logout-button:hover {
+            color: var(--color-accent);
+        }
+        
+        /* Auth Links */
+        .auth-links {
+            display: flex;
+            gap: var(--spacing-unit);
+        }
+        
+        .auth-link {
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .login-link {
+            color: var(--color-text);
+            border: 1px solid var(--color-primary);
+        }
+        
+        .login-link:hover {
+            background-color: rgba(76, 201, 240, 0.1);
+        }
+        
+        .register-link {
+            color: var(--color-dark);
+            background-color: var(--color-primary);
+        }
+        
+        .register-link:hover {
+            background-color: var(--color-secondary);
+            color: var(--color-text);
+        }
+        
+        /* Mobile Menu Button (hidden by default) */
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--color-dark);
+                padding: var(--spacing-unit);
+                box-shadow: var(--box-shadow);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                z-index: 999;
+            }
+            
+            .nav.active {
+                transform: translateY(0);
+            }
+            
+            .nav__list {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .nav__item {
+                width: 100%;
+                margin: 0;
+            }
+            
+            .nav__link {
+                padding: 1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav__item--user {
+                margin-left: 0;
+                margin-top: var(--spacing-unit);
+            }
+            
+            .auth-links {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .mobile-menu-button {
+                display: block;
+            }
         }
         
         /* Layout Component */
@@ -157,58 +337,108 @@
             text-align: center;
             border-top: 2px solid var(--color-secondary);
         }
+        .nav__item:last-child {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
     </style>
+    
 </head>
 <body>
     <header class="header">
-        <h1><a href="{% url 'news:home' %}" class="header__title">Django News Portal</a></h1>
-        <nav class="nav">
-            <ul class="nav__list">
-                <li class="nav__item"><a href="{% url 'news:home' %}" class="nav__link">Home</a></li>
-                <li class="nav__item"><a href="{% url 'admin:index' %}" class="nav__link">Admin</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">Create Article</a></li>
-            </ul>
-        </nav>
+        <div class="header__container">
+            <a href="{% url 'news:home' %}" class="header__logo">
+                <h1 class="header__title">Django News Portal</h1>
+            </a>
+            
+            <nav class="nav">
+                <ul class="nav__list">
+                    {% if user.is_authenticated %}
+                    <li class="nav__item"><a href="{% url 'admin:index' %}" class="nav__link">Admin</a></li>
+                    <li class="nav__item"><a href="{% url 'news:article_create' %}" class="nav__link">Create Article</a></li>
+                    {% else %}
+                    <li class="nav__item"><a href="{% url 'news:home' %}" class="nav__link">Home</a></li>
+                    {% endif %}
+                    
+                    <li class="nav__item nav__item--user">
+                        {% if user.is_authenticated %}
+                            <div class="user-menu">
+                                <span class="user-greeting">Hola, {{ user.username }}</span>
+                                <form action="{% url 'users:logout' %}" method="post" class="logout-form">
+                                    {% csrf_token %}
+                                    <button type="submit" class="logout-button">
+                                        <i class="fas fa-sign-out-alt"></i> Salir
+                                    </button>
+                                </form>
+                            </div>
+                        {% else %}
+                            <div class="auth-links">
+                                <a href="{% url 'users:login' %}" class="auth-link login-link">Ingresar</a>
+                                <a href="{% url 'users:register' %}" class="auth-link register-link">Registrarse</a>
+                            </div>
+                        {% endif %}
+                    </li>
+                </ul>
+            </nav>
+            
+            <button class="mobile-menu-button" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
     </header>
-    
     <div class="layout">
         <main class="layout__main">
             {% block content %}
             <!-- Main content will go here -->
             {% endblock %}
         </main>
-        
+        {% if not request.path == '/register/' and not request.path == '/login/' %}
+
         <aside class="layout__sidebar">
-            <section class="sidebar-section">
-                <h3 class="sidebar-section__title">Categories</h3>
-                <ul class="sidebar-list">
-                    {% for category in categories %}
-                        <li class="sidebar-list__item">
-                            <a href="{{ category.get_absolute_url }}" class="sidebar-list__link">{{ category.name }}</a>
-                        </li>
-                    {% empty %}
-                        <li class="sidebar-list__item">No categories available</li>
-                    {% endfor %}
-                </ul>
-            </section>
             
-            <section class="sidebar-section">
-                <h3 class="sidebar-section__title">Recent Articles</h3>
-                <ul class="sidebar-list">
-                    {% for article in recent_articles %}
-                        <li class="sidebar-list__item">
-                            <a href="{{ article.get_absolute_url }}" class="sidebar-list__link">{{ article.title }}</a>
-                        </li>
-                    {% empty %}
-                        <li class="sidebar-list__item">No recent articles</li>
-                    {% endfor %}
-                </ul>
-            </section>
+                <section class="sidebar-section">
+                    <h3 class="sidebar-section__title">Categories</h3>
+                    <ul class="sidebar-list">
+                        {% for category in categories %}
+                            <li class="sidebar-list__item">
+                                <a href="{{ category.get_absolute_url }}" class="sidebar-list__link">{{ category.name }}</a>
+                            </li>
+                        {% empty %}
+                            <li class="sidebar-list__item">No categories available</li>
+                        {% endfor %}
+                    </ul>
+                </section>
+                <section class="sidebar-section">
+                    <h3 class="sidebar-section__title">Recent Articles</h3>
+                    <ul class="sidebar-list">
+                        {% for article in recent_articles %}
+                            <li class="sidebar-list__item">
+                                <a href="{{ article.get_absolute_url }}" class="sidebar-list__link">{{ article.title }}</a>
+                            </li>
+                        {% empty %}
+                            <li class="sidebar-list__item">No recent articles</li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            
         </aside>
+        {% endif %}
     </div>
+    
     
     <footer class="footer">
         <p>&copy; {% now "Y" %} Django News Portal - A learning project</p>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.querySelector('.mobile-menu-button');
+            const nav = document.querySelector('.nav');
+            
+            menuButton.addEventListener('click', function() {
+                nav.classList.toggle('active');
+            });
+        });
+    </script>
 </body>
 </html>
