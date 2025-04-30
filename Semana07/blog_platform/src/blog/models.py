@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.text import slugify
+from .managers import PostManager, CommentManager
+
 
 
 class Category(models.Model):
@@ -69,6 +71,10 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='posts')
     tags = models.ManyToManyField(Tag, related_name='posts', blank=True)
+
+    # Managers
+    objects = models.Manager()  # Default manager
+    blog_objects = PostManager()  # Custom manager
     
     class Meta:
         ordering = ['-created_at']
@@ -96,6 +102,10 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     is_approved = models.BooleanField(default=False)
     
+    # Managers
+    objects = models.Manager()  # Default manager
+    blog_objects = CommentManager()  # Custom manager
+    
     class Meta:
         ordering = ['created_at']
         indexes = [
@@ -105,21 +115,5 @@ class Comment(models.Model):
     def __str__(self):
         return f"Comment by {self.author.username} on {self.post.title}"
 
-        # Add at the top of models.py
-from .managers import PostManager, CommentManager
 
-# In the Post model class
-class Post(models.Model):
-    # ... existing code ...
-    
-    # Managers
-    objects = models.Manager()  # Default manager
-    blog_objects = PostManager()  # Custom manager
 
-# In the Comment model class
-class Comment(models.Model):
-    # ... existing code ...
-    
-    # Managers
-    objects = models.Manager()  # Default manager
-    blog_objects = CommentManager()  # Custom manager
