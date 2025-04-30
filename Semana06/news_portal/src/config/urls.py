@@ -22,6 +22,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('news.urls')),
+    path('perfil/', include('profiles.urls')),
+    path('comments/', include(('comments.urls', 'comments'), namespace='comments')),
+    path('accounts/', include('django.contrib.auth.urls')),  
 ]
 
 # Serve media files in development

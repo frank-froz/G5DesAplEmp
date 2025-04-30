@@ -3,7 +3,6 @@ from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-
 class Category(models.Model):
     """Category model for organizing articles"""
     name = models.CharField(max_length=100)
@@ -52,3 +51,14 @@ class Article(models.Model):
     
     def get_absolute_url(self):
         return reverse("news:article_detail", kwargs={"slug": self.slug})
+
+
+
+
+class Comment(models.Model):
+    content = models.TextField()
+    author = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.content[:20]  # Devuelve una vista previa del comentario

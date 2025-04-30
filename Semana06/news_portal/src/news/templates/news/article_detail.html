@@ -20,4 +20,14 @@
             {{ article.content|linebreaks }}
         </div>
     </article>
+
+<form action="{% url 'comments:post_comment' article.id %}" method="post">
+    {% url 'comments:post_comment' article.id %}
+    <h3>Comentarios</h3>
+    <form method="post" action="{% url 'comments:post_comment' article.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Comentar</button>
+    </form>
+    
 {% endblock %}
