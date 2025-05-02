@@ -71,13 +71,13 @@ source env/bin/activate  # En Windows: env\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 👨‍💻 Integrantes del Grupo 5
+## 👨‍💻 Integrantes del Grupo 5
 Castro Peñaloza, Hector Hanmer – hector.castro@tecsup.edu.pe
 
 Huaytalla Rodriguez, Franklin Alvaro - franklin.huaytalla@tecsup.edu.pe
 
 Ramos Huaman, Jeyson Kenedy – jeyson.ramos@tecsup.edu.pe
 
-### 📄 Licencia
+## 📄 Licencia
 Este proyecto es de uso académico.
 Se permite su reproducción con fines educativos citando la fuente original.
