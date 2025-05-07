@@ -44,7 +44,6 @@ class PostManager(models.Manager):
         ).order_by('-total_comments')
 
 
-
 class CommentManager(models.Manager):
     """Custom manager for Comment model"""
     
