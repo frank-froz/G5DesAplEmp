@@ -88,7 +88,7 @@ Huaytalla Rodriguez, Franklin Alvaro - franklin.huaytalla@tecsup.edu.pe
 
 Ramos Huaman, Jeyson Kenedy – jeyson.ramos@tecsup.edu.pe
 
-Grupo 5 
-– Desarrollo de Aplicaciones Empresariales - TECSUP
-– 2025-I
+- Desarrollo de Aplicaciones Empresariales
+- TECSUP - 2025-1
+
 <p align="center">Made with ❤️ by the KaiMaki team</p>
