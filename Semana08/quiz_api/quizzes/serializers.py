@@ -4,9 +4,11 @@ from .models import Quiz, Question, Choice
 
 class ChoiceSerializer(serializers.ModelSerializer):
     """Serializer for the Choice model"""
+    question = serializers.PrimaryKeyRelatedField(queryset=Question.objects.all())
+
     class Meta:
         model = Choice
-        fields = ['id', 'text', 'is_correct']
+        fields = ['id', 'text', 'is_correct', 'question']
 
 
 class QuestionSerializer(serializers.ModelSerializer):
