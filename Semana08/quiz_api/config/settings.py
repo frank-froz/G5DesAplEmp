@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     
     # Third-party apps
     'rest_framework',
-    
+    'rest_framework.authtoken',  # Token Authentication
     # Local apps
     'quizzes',
+    # Additional Applications
+    'users',
 ]
 
 # Django REST Framework settings
@@ -51,7 +53,14 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',  # For development - change in production
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    # Configuración de JWT
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
 }
 
 MIDDLEWARE = [
@@ -135,3 +144,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
