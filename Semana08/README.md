@@ -209,6 +209,105 @@ You can test the API using Postman, cURL, or any HTTP client.
 
 1. **User Management System**:
     Implement user authentication and track quiz attempts using a Profile and QuizAttempt model. This will allow you to manage users and their quiz attempts.
+2. **Install dependencies:**
+
+    ```
+    pip install djangorestframework-simplejwt
+    ```
+3. **configure dependencies:**
+  # settings.py
+
+  REST_FRAMEWORK = {
+      'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+      ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+      ],
+  }
+4. **Conseguir Tokens User**
+  - URL: /api/token/
+  - Method: POST
+  - Payload:
+
+    ```
+    {
+      "username": "", //nombre de usuario
+      "password": ""
+    }
+    ```
+    ## API Endpoints 🌐
+    1. **Get All Users:**
+      - **URL**: `/api/users/`
+      - **Method**: `GET`
+
+    2. **Get a Specific User:**
+      - **URL**: `/api/users/{user_id}/`
+      - **Method**: `GET`
+
+    3. **Create a Profile:**
+      - **URL**: `/api/profiles/`
+      - **Method**: `POST`
+      - **Payload**:
+        ```json
+        {
+          "user": 1,  // ID of the user
+          "bio": "A short bio about the user",
+          "avatar": "url_to_avatar_image"
+        }
+        ```
+
+    4. **Get a Specific User Profile:**
+      - **URL**: `/api/profiles/{profile_id}/`
+      - **Method**: `GET`
+
+    5. **Update a User Profile:**
+      - **URL**: `/api/profiles/{profile_id}/`
+      - **Method**: `PUT`
+      - **Payload**:
+        ```json
+        {
+          "bio": "Updated bio for the user",
+          "avatar": "new_url_to_avatar_image"
+        }
+        ```
+
+    6. **Get All Quiz Attempts:**
+      - **URL**: `/api/quizattempts/`
+      - **Method**: `GET`
+
+    7. **Get Quiz Attempts by User:**
+      - **URL**: `/api/quizattempts/?user={user_id}`
+      - **Method**: `GET`
+
+    8. **Create a Quiz Attempt:**
+      - **URL**: `/api/quizattempts/`
+      - **Method**: `POST`
+      - **Payload**:
+        ```json
+        {
+          "user": 1,  // ID of the user
+          "quiz": 1,  // ID of the quiz
+          "score": 8,
+          "max_score": 10
+        }
+        ```
+
+    9. **Update a Quiz Attempt:**
+      - **URL**: `/api/quizattempts/{attempt_id}/`
+      - **Method**: `PUT`
+      - **Payload**:
+        ```json
+        {
+          "score": 9,
+          "max_score": 10
+        }
+        ```
+
+    10. **Delete a Quiz Attempt:**
+        - **URL**: `/api/quizattempts/{attempt_id}/`
+        - **Method**: `DELETE`
+ 
 
 2. **Quiz Categories and Tags**:
     Add categories and tags to organize quizzes. This will make it easier for users to filter and search for quizzes based on specific topics or themes.
