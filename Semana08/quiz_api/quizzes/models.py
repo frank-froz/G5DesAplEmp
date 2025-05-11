@@ -1,4 +1,6 @@
 from django.db import models
+# --- NUEVOS IMPORTS PARA CATEGORIES Y TAGS ---
+from categories.models import Category, Tag
 
 
 class Quiz(models.Model):
@@ -7,6 +9,22 @@ class Quiz(models.Model):
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    # --- CAMBIO: Relación con Category ---
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='quizzes'
+    )
+
+    # --- CAMBIO: Relación ManyToMany con Tag ---
+    tags = models.ManyToManyField(
+        Tag,
+        blank=True,
+        related_name='quizzes'
+    )
     
     class Meta:
         verbose_name_plural = "quizzes"
