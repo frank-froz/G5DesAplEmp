@@ -2,7 +2,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Quiz, Question, Choice
-from analytics.models import QuizActivity, QuestionStat  # Asegúrate de importar QuizActivity
+from analytics.models import QuizActivity, QuestionStat  # Asegúrate de importar QuizActivity y QuestionStat
 from .serializers import (
     QuizSerializer, QuizDetailSerializer,
     QuestionSerializer, QuestionDetailSerializer,
@@ -10,14 +10,19 @@ from .serializers import (
 )
 from datetime import date
 
+
 class QuizViewSet(viewsets.ModelViewSet):
     """ViewSet for Quiz model"""
     queryset = Quiz.objects.all()
     
+    # --- INICIO: Manejar serializers para category y tags ---
     def get_serializer_class(self):
+        # Para retrieve: mostramos detalle con categorías y etiquetas anidadas
         if self.action == 'retrieve':
             return QuizDetailSerializer
+        # Para list/create/update: usamos serializer que acepta IDs de category y tags
         return QuizSerializer
+    # --- FIN: get_serializer_class ---
     
     @action(detail=True, methods=['post'])
     def validate(self, request, pk=None):
@@ -48,7 +53,6 @@ class QuizViewSet(viewsets.ModelViewSet):
                 question_stat, created = QuestionStat.objects.get_or_create(question=question)
                 question_stat.attempts += 1
                 if choice.is_correct:
-                    # Incrementar respuestas correctas si la opción seleccionada es correcta
                     question_stat.correct_attempts += 1
                 question_stat.save()
                 
@@ -73,7 +77,7 @@ class QuizViewSet(viewsets.ModelViewSet):
         
         # Actualizar la actividad del cuestionario: incrementar completaciones
         activity, created = QuizActivity.objects.get_or_create(quiz=quiz, date=date.today())
-        activity.completions += 1  # Incrementar las completaciones
+        activity.completions += 1
         activity.save()
 
         return Response({
