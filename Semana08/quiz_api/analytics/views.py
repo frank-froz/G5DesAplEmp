@@ -11,3 +11,5 @@ class QuizActivityViewSet(viewsets.ModelViewSet):
     """ViewSet para obtener la actividad de los cuestionarios"""
     queryset = QuizActivity.objects.all()
     serializer_class = QuizActivitySerializer
+    
+    

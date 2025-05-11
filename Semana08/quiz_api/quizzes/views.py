@@ -2,12 +2,13 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Quiz, Question, Choice
+from analytics.models import QuizActivity, QuestionStat  # Asegúrate de importar QuizActivity
 from .serializers import (
     QuizSerializer, QuizDetailSerializer,
     QuestionSerializer, QuestionDetailSerializer,
     ChoiceSerializer, AnswerSerializer
 )
-
+from datetime import date
 
 class QuizViewSet(viewsets.ModelViewSet):
     """ViewSet for Quiz model"""
@@ -23,12 +24,12 @@ class QuizViewSet(viewsets.ModelViewSet):
         """Validate answers for a specific quiz"""
         quiz = self.get_object()
         
-        # Validate incoming data
+        # Validar los datos de las respuestas
         serializer = AnswerSerializer(data=request.data.get('answers', []), many=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-        # Process answers
+        # Procesar las respuestas
         answers = serializer.validated_data
         results = []
         
@@ -37,13 +38,21 @@ class QuizViewSet(viewsets.ModelViewSet):
             choice_id = answer['choice_id']
             
             try:
-                # Check if question belongs to this quiz
+                # Verificar si la pregunta pertenece a este cuestionario
                 question = Question.objects.get(id=question_id, quiz=quiz)
                 
-                # Check if choice belongs to this question
+                # Verificar si la opción pertenece a esta pregunta
                 choice = Choice.objects.get(id=choice_id, question=question)
                 
-                # Add result for this answer
+                # Actualizar estadísticas de la pregunta
+                question_stat, created = QuestionStat.objects.get_or_create(question=question)
+                question_stat.attempts += 1
+                if choice.is_correct:
+                    # Incrementar respuestas correctas si la opción seleccionada es correcta
+                    question_stat.correct_attempts += 1
+                question_stat.save()
+                
+                # Agregar el resultado de esta respuesta
                 results.append({
                     'question_id': question_id,
                     'correct': choice.is_correct,
@@ -58,10 +67,15 @@ class QuizViewSet(viewsets.ModelViewSet):
                     'error': 'Question or choice not found'
                 })
         
-        # Calculate score
+        # Calcular el puntaje
         correct_answers = sum(1 for r in results if r.get('correct', False))
         total_answers = len(results)
         
+        # Actualizar la actividad del cuestionario: incrementar completaciones
+        activity, created = QuizActivity.objects.get_or_create(quiz=quiz, date=date.today())
+        activity.completions += 1  # Incrementar las completaciones
+        activity.save()
+
         return Response({
             'quiz_id': quiz.id,
             'score': f"{correct_answers}/{total_answers}",
