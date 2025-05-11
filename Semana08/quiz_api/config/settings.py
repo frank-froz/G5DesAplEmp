@@ -47,6 +47,10 @@ INSTALLED_APPS = [
     'users',
     #analytics
     'analytics',
+    #categories
+    'categories',
+    #tags
+    'tags',
 ]
 
 # Django REST Framework settings

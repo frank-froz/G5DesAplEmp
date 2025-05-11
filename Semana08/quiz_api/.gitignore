@@ -1,0 +1,27 @@
+__pycache__/
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*.class
+
+
+# Entorno virtual
+**/venv/
+**/.venv/a
+
+
+# Configuración local
+local_settings.py
+
+# Base de datos
+db.sqlite3
+
+# Archivos de log
+*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# Archivos subidos
+media/
