@@ -33,17 +33,24 @@ Our API will consist of these key components:
 
 ```
 Quiz API
-├── Models
-│   ├── Quiz       ## (title, description, etc.)
-│   ├── Question   ## (belongs to a quiz, contains text)
-│   └── Choice     ## (belongs to a question, has text and correctness flag)
-├── Serializers
-│   ├── Basic serializers for individual models
-│   └── Nested serializers for related data
-├── Views
-│   ├── ViewSets for CRUD operations
-│   └── Custom view for answer validation
-└── URLs for routing requests
+├── analytics
+│   ├── models.py       
+│   ├── serializers.p
+│   ├── urls.py         
+│   └── views.py     
+├── config
+├── quizzes
+│   ├── models.py       
+│   ├── serializers.p
+│   ├── urls.py         
+│   └── views.py 
+├── users
+│   ├── models.py       
+│   ├── serializers.p
+│   ├── urls.py         
+│   └── views.py 
+├── manage.py
+└── requirements.txt
 ```
 
 ## Installation💻
@@ -124,10 +131,13 @@ Quiz API
 You can interact with the API via HTTP requests. Below are the main operations you can perform with the endpoints.
 
 ## API Endpoints 🌐
+
+### *Quizz*
+
 1. **Create a Quiz:**
-     - URL: `/api/quizzes/` 
-     - Method: `POST`
-     - Payload:
+     - **URL**: `/api/quizzes/` 
+     - **Method**: `POST`
+     - **Payload**:
 
        ```json
        {
@@ -136,12 +146,16 @@ You can interact with the API via HTTP requests. Below are the main operations y
        }
        ```
 
-   
+2. **Get All Quizz:**
+     - **URL**: `/api/quizzes/` 
+     - **Method**: `GET`
+      
 
-2. **Create a Question:**
-      - URL: `/api/questions/`
-      - Method: `POST`
-      - Payload:
+3. **Create a Question:**
+   
+      - **URL**: `/api/questions/`
+      - **Method**: `POST`
+      - **Payload**:
 
         ```json
           {
@@ -150,8 +164,13 @@ You can interact with the API via HTTP requests. Below are the main operations y
           }   
          ```
 
+4. **Get all Question:**
+   
+      - **URL**: `/api/questions/`
+      - **Method**: `GET`
+        
 
-4. **Create Choices:**
+5. **Create Choices:**
 
      - URL: `/api/choices/`
      - Method: `POST`
@@ -165,7 +184,13 @@ You can interact with the API via HTTP requests. Below are the main operations y
        }
        ```
 
-5. **Validate Quiz Answers:**
+6. **Get all Choices:**
+
+     - URL: `/api/choices/`
+     - Method: `GET`
+       
+
+7. **Validate Quiz Answers:**
 
      - URL: `/api/quizzes/<quiz_id>/validate/`
      - Method: `POST`
@@ -195,19 +220,20 @@ You can interact with the API via HTTP requests. Below are the main operations y
          ]
        }
        ```
-#### USERS
 
-6. **Get All Users:**
+### *Users*
+
+1. **Get All Users:**
    
       - **URL**: `/api/users/`
       - **Method**: `GET`
    
-7. **Get a Specific User:**
+2. **Get a Specific User:**
    
       - **URL**: `/api/users/{user_id}/`
       - **Method**: `GET`
    
-9. **Create a Profile:**
+3. **Create a Profile:**
     
       - **URL**: `/api/profiles/`
       - **Method**: `POST`
@@ -221,15 +247,13 @@ You can interact with the API via HTTP requests. Below are the main operations y
            }
            ```
         
-
-
    
-11. **Get a Specific User Profile:**
+4. **Get a Specific User Profile:**
 
       - **URL**: `/api/profiles/{profile_id}/`
       - **Method**: `GET`
    
-13. **Update a User Profile:**
+5. **Update a User Profile:**
     
       - **URL**: `/api/profiles/{profile_id}/`
       - **Method**: `PUT`
@@ -242,82 +266,99 @@ You can interact with the API via HTTP requests. Below are the main operations y
            }
            ```
    
-15. **Get All Quiz Attempts:**
+6. **Get All Quiz Attempts:**
     
       - **URL**: `/api/quizattempts/`
       - **Method**: `GET`
    
-17. **Get Quiz Attempts by User:**
+7. **Get Quiz Attempts by User:**
 
-       - **URL**: `/api/quizattempts/?user={user_id}`
-       - **Method**: `GET`
+      - **URL**: `/api/quizattempts/?user={user_id}`
+      - **Method**: `GET`
    
-19. **Create a Quiz Attempt:**
+8. **Create a Quiz Attempt:**
        - **URL**: `/api/quizattempts/`
        - **Method**: `POST`
        - **Payload**:
-        
-           ```json
-           {
-             "user": 1,  // ID of the user
-             "quiz": 1,  // ID of the quiz
-             "score": 8,
-             "max_score": 10
-           }
-           ```
+
+      ```json
+         {
+            "user": 1,  // ID of the user
+            "quiz": 1,  // ID of the quiz
+            "score": 8,
+            "max_score": 10
+         }
+      ```
    
-   21. **Update a Quiz Attempt:**
+10. **Update a Quiz Attempt:**
        
-       - **URL**: `/api/quizattempts/{attempt_id}/`
-       - **Method**: `PUT`
-       - **Payload**:
-           ```json
+      - **URL**: `/api/quizattempts/{attempt_id}/`
+      - **Method**: `PUT`
+      - **Payload**:
+
+        ```json
            {
              "score": 9,
              "max_score": 10
            }
            ```
    
-23. **Delete a Quiz Attempt:**
+11. **Delete a Quiz Attempt:**
    
       - **URL**: `/api/quizattempts/{attempt_id}/`
-      - **Method**: `DELETE` 
+      - **Method**: `DELETE`
 
-## Testing 🧪
-You can test the API using Postman, cURL, or any HTTP client.
 
-### Examples:
-1. **Creating a quiz** using cURL:
+### *Categories and Tags*
 
-   ```
-    curl -X POST http://127.0.0.1:8000/api/quizzes/ \
-      -H "Content-Type: application/json" \
-      -d '{"title": "Python Basics", "description": "Test your knowledge of Python fundamentals"}'
-    ```
+1. **Create a Categories:**
+     - **URL**: `/api/categories/` 
+     - **Method**: `POST`
+     - **Payload**:
 
-2. **Creating a question**:
-    
-   ```
-    curl -X POST http://127.0.0.1:8000/api/questions/ \
-      -H "Content-Type: application/json" \
-      -d '{"quiz": 1, "text": "What is the output of print(1 + 2)?"}'
-    ```
-  
-3. **Creating choices**:
-    
-   ```
-    curl -X POST http://127.0.0.1:8000/api/choices/ \
-      -H "Content-Type: application/json" \
-      -d '{"question": 1, "text": "3", "is_correct": true}'
-    ```
+       ```json
+       {
+         "title": "Python",
+         "description": "Python's scripts"
+       }
+       ```
+
+2. **Get All Categories:**
+     - **URL**: `/api/categories/` 
+     - **Method**: `GET`
       
-4. **Validating quiz answers**:
 
-   ```
-    curl -X POST http://127.0.0.1:8000/api/quizzes/1/validate/ \
-      -H "Content-Type: application/json" \
-      -d '{"answers": [{"question_id": 1, "choice_id": 1}]}'
-    ```
+3. **Create a Tags:**
+   
+      - **URL**: `/api/tags/`
+      - **Method**: `POST`
+      - **Payload**:
+
+        ```json
+          {
+            "name": "hard"
+          }   
+         ```
+
+4. **Get all Tags:**
+   
+      - **URL**: `/api/tags/`
+      - **Method**: `GET`
+  
+
+### *Analytics*
+
+1. **Get Question stat**
+   
+      - **URL**: `/api/analytics/question-stats`
+      - **Method**: `GET`
+
+
+2. **Get Question Activities**
+   
+      - **URL**: `/api/analytics/quiz-activities`
+      - **Method**: `GET`
+        
 
 
 ## Authors 👨‍💻
