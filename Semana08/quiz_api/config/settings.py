@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'quizzes',
     # Additional Applications
     'users',
+    #analytics
+    'analytics',
 ]
 
 # Django REST Framework settings
