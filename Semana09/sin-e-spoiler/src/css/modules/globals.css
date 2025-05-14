@@ -1,38 +1,32 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+body {
   margin: 0;
-  padding: 0;
-}
-
-html, body {
-  width: 100%;
   font-family: var(--primary-font);
   background-color: var(--primary-background);
   color: var(--primary-text);
-  line-height: 1.5;
-  scroll-behavior: smooth;
-  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 200vh;
   display: flex;
-  justify-content: center; 
-  align-items: center;    
+  flex-direction: column;
+  
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  overflow-x: hidden; /* evita scroll horizontal */
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-  background: none;
+#root, main {
+  width: 100%;
+  max-width: 100%;  /* elimina cualquier límite */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }

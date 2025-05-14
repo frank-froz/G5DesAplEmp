@@ -1,5 +1,4 @@
 // components/MovieCard.jsx - Individual movie display
-import React from 'react';
 import Rating from './Rating';
 
 const MovieCard = ({ movie }) => {
@@ -12,17 +11,18 @@ const MovieCard = ({ movie }) => {
           src={image} 
           alt={`${title} poster`}
           className="card__image"
+          loading="lazy"
         />
         <div className="card__overlay">
-          <span className="card__badge c-primary">{genre}</span>
+          <span className="badge badge--primary">{genre}</span>
         </div>
       </div>
       
       <div className="card__body">
         <h3 className="card__title">{title}</h3>
-        <div className="card__meta d-flex a-items-center g-2">
+        <div className="card__meta">
           <Rating value={rating} />
-          <span className="card__duration c-secondary">{duration}</span>
+          <span className="card__duration">{duration}</span>
         </div>
         
         <p className="card__description">{description}</p>
@@ -33,8 +33,8 @@ const MovieCard = ({ movie }) => {
             {showTimes.map((time, index) => (
               <button 
                 key={index}
-                className="btn btn--time"
-                aria-label={`Show time ${time}`}
+                className="button button--time"
+                aria-label={`Show time ${time} for ${title}`}
               >
                 {time}
               </button>

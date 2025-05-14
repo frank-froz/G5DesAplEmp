@@ -1,6 +1,4 @@
 // components/Footer.jsx - Footer with cinema information
-import React from 'react';
-
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
@@ -9,9 +7,10 @@ const Footer = () => {
       <div className="container">
         <div className="footer__content">
           <div className="footer__section">
-            <h3 className="footer__title c-primary">Sin E Spoiler</h3>
+            <h3 className="footer__title">Sin E Spoiler</h3>
             <p className="footer__text">
               Your trusted source for spoiler-free movie experiences.
+              AI-powered reviews that preserve the magic of cinema.
             </p>
           </div>
           
