@@ -1,0 +1,51 @@
+.c-primary {
+  color: var(--primary-color) !important;
+}
+
+.c-white {
+  color: var(--primary-text) !important;
+}
+
+.c-secondary {
+  color: var(--secondary-text) !important;
+}
+
+.d-block {
+  display: block !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.mt-md {
+  margin-top: 1rem !important;
+}
+
+.mb-md {
+  margin-bottom: 1rem !important;
+}
+
+.opacity-75 {
+  opacity: 0.75 !important;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.a-items-center {
+  align-items: center !important;
+}
+
+.j-content-between {
+  justify-content: space-between !important;
+}
+
+.j-content-center {
+  justify-content: center !important;
+}
+
+.f-wrap {
+  flex-wrap: wrap !important;
+}

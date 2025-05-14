@@ -1,0 +1,43 @@
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color);
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+p {
+  color: var(--primary-text);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.list {
+  padding-left: 0;
+}
+
+.list--menu {
+  display: flex;
+  gap: 1rem;
+}
+
+.list__item {
+  font-weight: 600;
+}
+
+.list__item a {
+  color: var(--primary-text);
+  transition: color 0.3s ease;
+}
+
+.list__item a:hover {
+  color: var(--primary-color);
+}
+
+address {
+  font-style: normal;
+  line-height: 1.5;
+}

@@ -1,0 +1,38 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  font-family: var(--primary-font);
+  background-color: var(--primary-background);
+  color: var(--primary-text);
+  line-height: 1.5;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center; 
+  align-items: center;    
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}

@@ -42,7 +42,7 @@ const App = () => {
   ];
 
   return (
-    <div className="app">
+    <div>
       <Header />
       <main className="main">
         <Hero />
