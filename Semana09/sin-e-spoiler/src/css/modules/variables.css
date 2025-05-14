@@ -1,0 +1,37 @@
+:root {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  
+  /* Brand Colors */
+  --primary-color: #23B5E8;
+  --secondary-color: #234B96;
+  --success-color: #23B58B;
+  --warning-color: #E8B523;
+  --danger-color: #E23B58;
+  --black-color: #010508;
+  --white-color: #FEFEFE;
+  
+  /* Neutral Colors */
+  --neutral-950: #191B1C;
+  --shadow: #FEFEFE80;
+  --light-shadow: #01050880;
+  
+  /* Spacing & Layout */
+  --size: 0.25rem;
+  --max-width: 1200px;
+  --transition-duration: 0.3s;
+  
+  /* Typography */
+  --primary-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Backgrounds */
+  --primary-background: var(--black-color);
+  --secondary-background: var(--neutral-950);
+  
+  /* Text Colors */
+  --primary-text: var(--white-color);
+  --secondary-text: var(--shadow);
+  
+  /* Borders & Radius */
+  --border-radius: calc(var(--size) * 2);
+}
