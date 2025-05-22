@@ -1,18 +1,19 @@
 import React from 'react';
+import Button from './widgets/Button';
 
 const GenreFilter = ({ genres, activeGenre, onGenreChange }) => {
   return (
     <div className='container'>
       <div className="card__body">
-        <div className="genre-filter">
+        <div className="genre-filter" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
           {genres.map(genre => (
-            <button
+            <Button
               key={genre}
-              className={`button btn ${activeGenre === genre ? 'btn--active' : ''}`}
+              text={genre}
+              variant={activeGenre === genre ? 'primary' : 'outline-primary'}
               onClick={() => onGenreChange(genre)}
-            >
-              {genre}
-            </button>
+              ariaLabel={`Filter movies by genre ${genre}`}
+            />
           ))}
         </div>
       </div>

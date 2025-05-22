@@ -1,41 +1,74 @@
-// App.jsx - Main application component
-import React, { useState } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import MovieList from './components/MovieList';
-import Footer from './components/Footer';
-import { getMovies } from './data/movies';
-import GenreFilter from './components/GenreFilter';
-import './css/index.css';
+import { useState } from "react";
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import GenreFilter from "./components/GenreFilter";
+import MovieList from "./components/MovieList";
+import MovieSearch from "./components/widgets/MovieSearch";
+import Footer from "./components/Footer";
+import { getMovies } from "./utils/movie.utils";
 
-const App = () => {
-  // Get movies from our data file
+function App() {
   const movies = getMovies();
+  const genres = ["All", ...new Set(movies.map((m) => m.genre))];
+  const [activeGenre, setActiveGenre] = useState("All");
+  const [favorites, setFavorites] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
 
-const genres = ["All", ...Array.from(new Set(movies.map(movie => movie.genre)))];
-const [activeGenre, setActiveGenre] = useState("All");
+  const toggleFavorite = (movieId) => {
+    setFavorites((prev) => ({
+      ...prev,
+      [movieId]: !prev[movieId],
+    }));
+  };
 
-const handleGenreChange = genre => {
-  setActiveGenre(genre);
-};
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
 
-const filteredMovies = activeGenre === "All"
-  ? movies
-  : movies.filter(movie => movie.genre === activeGenre);
+  const handleGenreChange = (genre) => {
+    setActiveGenre(genre);
+  };
 
+  const filteredMovies = movies.filter((movie) => {
+    const matchesGenre = activeGenre === "All" || movie.genre === activeGenre;
+    const matchesSearch = movie.title.toLowerCase().includes(searchQuery);
+    return matchesGenre && matchesSearch;
+  });
 
+  const favoriteMovies = movies.filter((movie) => favorites[movie.id]);
 
   return (
-    <div>
+    <>
       <Header />
-      <main className="main">
+      <main className="main d-flex f-direction-column g-8">
         <Hero />
-        <GenreFilter genres={genres} activeGenre={activeGenre} onGenreChange={handleGenreChange} />
-        <MovieList movies={filteredMovies} />
+        <MovieSearch onSearch={handleSearch} />
+        <GenreFilter
+          genres={genres}
+          activeGenre={activeGenre}
+          onGenreChange={handleGenreChange}
+        />
+        <MovieList
+          movies={filteredMovies}
+          favorites={favorites}
+          onToggleFavorite={toggleFavorite}
+        />
+        {favoriteMovies.length > 0 && (
+          <>
+            <h2 className="title c-primary t-align-center m-top-6">
+              Your Favorites ❤️
+            </h2>
+            <MovieList
+              movies={favoriteMovies}
+              favorites={favorites}
+              onToggleFavorite={toggleFavorite}
+            />
+          </>
+        )}
       </main>
       <Footer />
-    </div>
+    </>
   );
-};
+}
 
 export default App;

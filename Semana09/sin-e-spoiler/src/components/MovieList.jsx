@@ -1,15 +1,17 @@
-// components/MovieList.jsx - Movie grid container
-import MovieCard from './MovieCard';
+import MovieCard from "./MovieCard";
 
-const MovieList = ({ movies }) => {
+const MovieList = ({ movies, favorites = {}, onToggleFavorite }) => {
   return (
-    <section id="movies" className="section section--movies">
+    <section className="section section--movies">
       <div className="container">
-        <h2 className="section__title">Now Showing</h2>
-        
-        <div className="g-layout g-layout--auto-fit-columns">
-          {movies.map(movie => (
-            <MovieCard key={movie.id} movie={movie} />
+        <div className="g-layout g-layout--auto-fit-columns g-6">
+          {movies.map((movie) => (
+            <MovieCard
+              key={movie.id}
+              movie={movie}
+              isFavorite={!!favorites[movie.id]}
+              onToggleFavorite={() => onToggleFavorite(movie.id)}
+            />
           ))}
         </div>
       </div>

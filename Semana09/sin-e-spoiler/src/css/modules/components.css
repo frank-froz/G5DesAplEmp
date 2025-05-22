@@ -267,3 +267,47 @@
   color: var(--shadow);
   font-size: calc(var(--size) * 3.5);
 }
+
+.form__input {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--secondary-color);
+  border-radius: var(--border-radius);
+  background-color: var(--neutral-950);
+  color: var(--primary-text);
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  padding-left: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  
+}
+
+.form__input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 5px var(--primary-color);
+}
+
+.favorite-button {
+  position: absolute;
+  top: 8px;     /* espacio desde arriba */
+  left: 8px;    /* espacio desde la izquierda */
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.favorite-button.animate {
+  transform: scale(1.3);
+}
+
+.title.t-align-center {
+  max-width: 1200px;   /* o lo que uses como ancho de contenido */
+  margin: 1rem auto 0; /* centrado horizontal con margen arriba */
+  padding: 0 1rem; /* padding para que no pegue al borde */
+}
