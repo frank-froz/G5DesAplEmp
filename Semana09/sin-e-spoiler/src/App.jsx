@@ -24,7 +24,7 @@ function App() {
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
-
+  // cambia el género activo seleccionado en el filtro aña
   const handleGenreChange = (genre) => {
     setActiveGenre(genre);
   };
@@ -35,6 +35,7 @@ function App() {
     return matchesGenre && matchesSearch;
   });
 
+  // Obtiene solo las películas marcadas como favoritas
   const favoriteMovies = movies.filter((movie) => favorites[movie.id]);
 
   return (
