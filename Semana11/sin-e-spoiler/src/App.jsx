@@ -6,13 +6,21 @@ import MovieList from "./components/MovieList";
 import MovieSearch from "./components/widgets/MovieSearch";
 import Footer from "./components/Footer";
 import { getMovies } from "./utils/movie.utils";
+import { usePremieres } from "./hooks/usePremieres";
+import PremieresSlider from "./components/modules/PremieresSlider";
 
 function App() {
   const movies = getMovies();
   const genres = ["All", ...new Set(movies.map((m) => m.genre))];
+
   const [activeGenre, setActiveGenre] = useState("All");
   const [favorites, setFavorites] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Custon hook de strenos
+
+  const { premieres, loading: loadingPremieres, error: errorPremieres } = usePremieres();
+
 
   const toggleFavorite = (movieId) => {
     setFavorites((prev) => ({
@@ -43,6 +51,21 @@ function App() {
       <Header />
       <main className="main d-flex f-direction-column g-8">
         <Hero />
+
+                <section aria-live="polite">
+          <h2 className="title c-primary t-align-center">New Premieres 🎬</h2>
+          {errorPremieres ? (
+            <p className="t-align-center c-danger">⚠️ Error al cargar los estrenos. Intenta más tarde.</p>
+          ) : (
+            <PremieresSlider
+              items={premieres}
+              loading={loadingPremieres}
+              onSelect={(movie) => console.log("Selected premiere:", movie)}
+            />
+          )}
+        </section>
+
+        
         <MovieSearch onSearch={handleSearch} />
         <GenreFilter
           genres={genres}

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { movies } from "../data/movies.data";
+import { movies } from "./data/movies.data";
 
 export function usePremieres(delay = 500) {
   const [premieres, setPremieres] = useState([]);
