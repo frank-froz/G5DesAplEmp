@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import PremieresSection from "./components/modules/PremieresSection";
 import GenreFilter from "./components/GenreFilter";
 import MovieList from "./components/MovieList";
 import MovieSearch from "./components/widgets/MovieSearch";
