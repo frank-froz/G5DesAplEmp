@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { usePremieres } from "../../hooks/usePremieres";
+import usePremieres from '../../hooks/usePremieres';
 import PremieresSlider from "./PremieresSlider";
 import { notifyFavorite } from "../../utils/notifyFavorite";
 import LoadingSkeleton from "../widgets/LoadingSkeleton";

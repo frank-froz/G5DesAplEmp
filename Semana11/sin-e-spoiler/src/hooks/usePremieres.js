@@ -1,17 +1,18 @@
 import { useState, useEffect, useRef } from "react";
-import { movies } from "./data/movies.data";
+import { tmdbNowPlayingMock } from "../data/movies.data";
 
-export function usePremieres(delay = 500) {
+const usePremieres = (delay = 500) => {
   const [premieres, setPremieres] = useState([]);
-  const [loading, setLoading]     = useState(true);
-  const [error, setError]         = useState(null);
-  const timerRef                  = useRef(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const timerRef = useRef();
 
   useEffect(() => {
     setLoading(true);
+
     timerRef.current = setTimeout(() => {
       try {
-        setPremieres(movies.slice(0, 10)); // primeros 10 estrenos
+        setPremieres(tmdbNowPlayingMock.results.slice(0, 10));
       } catch (e) {
         setError(e);
       } finally {
@@ -19,9 +20,12 @@ export function usePremieres(delay = 500) {
       }
     }, delay);
 
-    return () => clearTimeout(timerRef.current);
+    return () => {
+      clearTimeout(timerRef.current);
+    };
   }, [delay]);
 
   return { premieres, loading, error };
-}
+};
 
+export default usePremieres;

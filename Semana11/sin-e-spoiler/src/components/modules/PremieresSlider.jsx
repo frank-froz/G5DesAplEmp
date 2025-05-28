@@ -22,10 +22,10 @@ export default function PremieresSlider({ items, loading, onSelect }) {
             onKeyDown={e => e.key === "Enter" && onSelect(movie)}
           >
             <img
-              src={movie.image}
-              alt={movie.title}
-              className="card__image"
-              loading="lazy"
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}  // Usando poster_path
+                alt={movie.title}
+                className="card__image"
+                loading="lazy"
             />
             <h3 className="title title--2xs c-primary">{movie.title}</h3>
           </div>
