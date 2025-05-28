@@ -1,0 +1,127 @@
+.title {
+  margin: 0;
+  font-size: calc(var(--size) * 8);
+  font-weight: 800;
+}
+
+.title--sm {
+  font-size: calc(var(--size) * 7);
+}
+
+.title--xs {
+  font-size: calc(var(--size) * 6);
+  font-weight: 700;
+}
+
+.text {
+  margin: 0;
+  font-size: calc(var(--size) * 4);
+}
+
+.text--sm {
+  font-size: calc(var(--size) * 3.5);
+}
+
+.text--xs {
+  font-size: calc(var(--size) * 3);
+}
+
+.interactive {
+  margin: 0;
+  font-size: calc(var(--size) * 3.5);
+  font-weight: 600;
+}
+
+.interactive--lg {
+  font-size: calc(var(--size) * 4);
+}
+
+.interactive--sm {
+  font-size: calc(var(--size) * 3);
+}
+
+.interactive--xs {
+  font-size: calc(var(--size) * 2.5);
+}
+
+.img {
+  display: block;
+  object-fit: cover;
+}
+
+.img--background {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  opacity: 0.5;
+}
+
+.link {
+  color: var(--white-color);
+  text-decoration: none;
+  transition: color var(--transition-duration);
+}
+
+.link:hover {
+  color: var(--primary-color);
+}
+
+.button {
+  --primary-button-color: var(--primary-background);
+  --primary-button-text: var(--primary-text);
+  padding: 0.5em 1em;
+  border: calc(var(--size) * 0.125) solid var(--primary-button-color);
+  border-radius: calc(var(--size) * 2);
+  background-color: var(--primary-button-color);
+  color: var(--primary-button-text);
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--primary-font);
+  transition: filter var(--transition-duration);
+}
+
+.button:hover {
+  filter: opacity(0.875);
+}
+
+.button--primary {
+  --primary-button-color: var(--primary-color);
+  --primary-button-text: var(--light-primary-text);
+}
+
+.button--time {
+  padding: 0.25em 0.75em;
+  font-size: calc(var(--size) * 3.5);
+  background-color: var(--neutral-950);
+  color: var(--white-color);
+  border: 1px solid var(--primary-color);
+}
+
+.button--time:hover {
+  background-color: var(--primary-color);
+  color: var(--black-color);
+}
+
+.badge {
+  --primary-badge-color: var(--primary-background);
+  --primary-badge-text: var(--primary-text);
+  padding: 0.25em 0.5em;
+  border-radius: calc(var(--size) * 2);
+  background-color: var(--primary-badge-color);
+  color: var(--primary-badge-text);
+  font-size: calc(var(--size) * 3);
+  font-weight: 600;
+}
+
+.badge--primary {
+  --primary-badge-color: var(--primary-color);
+  --primary-badge-text: var(--light-primary-text);
+}
+
+.list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}

@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  font-family: var(--primary-font);
+  background-color: var(--primary-background);
+  color: var(--primary-text);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 200vh;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  overflow-x: hidden; /* evita scroll horizontal */
+}
+
+#root, main {
+  width: 100%;
+  max-width: 100%;  /* elimina cualquier límite */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
