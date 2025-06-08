@@ -10,8 +10,8 @@ function SerieComponent(props) {
       <img 
         className="card-img-top" 
         src={props.imagen 
-          ? ("http://localhost:8000/" + props.imagen) 
-          : "https://dummyimage.com/400x2   50/000/fff&text=Sin+imagen"} 
+          ? props.imagen 
+          : "https://dummyimage.com/400x250/000/fff&text=Sin+imagen"} 
         alt={props.nombre} 
       />
       <div className="card-body">
