@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import HeaderComponent from "../components/HeaderComponent";
 import SerieComponent from "../components/SerieComponent";
+import SerieSkeleton from "../components/SerieSkeleton";
 
 function SeriePage() {
   const [series, setSeries] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     async function fetchData() {
@@ -20,7 +23,7 @@ function SeriePage() {
         console.error('Error al cargar datos:', error);
       }
     }
-    fetchData();
+    fetchData().finally(() => setIsLoading(false));;
   }, []);
 
   return (
@@ -34,21 +37,27 @@ function SeriePage() {
           </div>
         </div>
         <div className="row">
-          {series.map((serie) => {
-            // Buscamos el nombre de la categoría en base al id
-            const categoriaNombre = categories.find(c => c.id === serie.cat)?.nombre || "Sin categoría";
-
-            return (
-              <div key={serie.cod} className="col-md-3 mb-3">
-                <SerieComponent
-                  codigo={serie.cod}
-                  nombre={serie.nom}
-                  categoria={categoriaNombre}
-                  imagen={serie.img}
-                />
+          {isLoading ? (
+            [...Array(4)].map((_, i) => (
+              <div className="col-md-3 mb-3" key={i}>
+                <SerieSkeleton />
               </div>
-            );
-          })}
+            ))
+          ) : (
+            series.map((serie) => {
+              const categoriaNombre = categories.find(c => c.id === serie.cat)?.nombre || "Sin categoría";
+              return (
+                <div key={serie.cod} className="col-md-3 mb-3">
+                  <SerieComponent
+                    codigo={serie.cod}
+                    nombre={serie.nom}
+                    categoria={categoriaNombre}
+                    imagen={serie.img}
+                  />
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
     </>
